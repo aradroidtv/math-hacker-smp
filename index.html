@@ -3,516 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Math Hacker: Nexus</title>
+    <title>Math Hacker: Nexus (SMP/MTsN)</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: #050505;
-            color: #00ff00; /* Neon Green */
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-            background-image: 
-                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        h1, h2, h3, .title-font {
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        /* Hacker Themes CSS */
-        .theme-7 { --neon: #00ff00; --bg: #002200; } /* Neon Green */
-        .theme-8 { --neon: #00f3ff; --bg: #001f22; } /* Cyan */
-        .theme-9 { --neon: #ff00ff; --bg: #220022; } /* Magenta */
-
-        .terminal-container {
-            border: 1px solid var(--neon);
-            box-shadow: 0 0 10px var(--neon), inset 0 0 10px rgba(0,255,0,0.1);
-            background: rgba(0, 0, 0, 0.8);
-            position: relative;
-        }
-
-        .terminal-container::before {
-            content: "NEXUS_OS v9.0.1";
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            background: #050505;
-            padding: 0 5px;
-            font-size: 12px;
-            color: var(--neon);
-        }
-
-        .btn-hack {
-            background: transparent;
-            border: 1px solid var(--neon);
-            color: var(--neon);
-            text-transform: uppercase;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-hack:hover {
-            background: var(--neon);
-            color: #000;
-            box-shadow: 0 0 15px var(--neon);
-        }
-        .btn-hack:active {
-            transform: scale(0.98);
-        }
-
-        /* Glitch Animation for Timer */
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-        .timer-danger {
-            color: #ff003c;
-            animation: glitch 0.3s infinite;
-            text-shadow: 0 0 5px #ff003c;
-        }
-
-        /* Scanline Effect */
-        .scanlines {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 999;
-        }
+        body { font-family: 'Share Tech Mono', monospace; background-color: #050505; color: #00ff00; margin: 0; padding: 0; overflow: hidden; height: 100vh; width: 100vw; background-image: linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px); background-size: 20px 20px; }
+        h1, h2, h3, .title-font { font-family: 'Orbitron', sans-serif; }
+        .theme-7 { --neon: #00ff00; --bg: #002200; } .theme-8 { --neon: #00f3ff; --bg: #001f22; } .theme-9 { --neon: #ff00ff; --bg: #220022; }
+        .terminal-container { border: 1px solid var(--neon); box-shadow: 0 0 10px var(--neon), inset 0 0 10px rgba(0,255,0,0.1); background: rgba(0, 0, 0, 0.8); position: relative; }
+        .terminal-container::before { content: "NEXUS_OS v9.0.1"; position: absolute; top: -10px; left: 10px; background: #050505; padding: 0 5px; font-size: 12px; color: var(--neon); }
+        .btn-hack { background: transparent; border: 1px solid var(--neon); color: var(--neon); text-transform: uppercase; transition: all 0.2s; }
+        .btn-hack:hover { background: var(--neon); color: #000; box-shadow: 0 0 15px var(--neon); } .btn-hack:active { transform: scale(0.98); }
+        @keyframes glitch { 0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) } 40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) } 80% { transform: translate(2px, -2px) } 100% { transform: translate(0) } }
+        .timer-danger { color: #ff003c; animation: glitch 0.3s infinite; text-shadow: 0 0 5px #ff003c; }
+        .scanlines { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2)); background-size: 100% 4px; pointer-events: none; z-index: 999; }
     </style>
 </head>
 <body>
-    <div class="scanlines"></div>
-    <div id="root"></div>
-
+    <div class="scanlines"></div><div id="root"></div>
     <script type="text/babel">
         const { useState, useEffect, useRef, useMemo } = React;
 
-        // --- DATABASE SOAL SMP/MTsN ---
-        // Penulisan pangkat pakai unicode (², ³) atau huruf. Akar pakai (√).
-const allQuestionsData = {
-    7: [ // KELAS 7 - 10 LEVEL
-        { level: 1, topic: "Bilangan Bulat & Pecahan", qs: [
-            { q: "Hasil dari -15 + (-12) : 3 adalah...", o: ["-19", "-11", "-9", "-21"], a: "-19" },
-            { q: "Suhu es 5°C di bawah nol. Setelah dipanaskan naik 12°C. Suhu sekarang?", o: ["7°C", "17°C", "-7°C", "12°C"], a: "7°C" },
-            { q: "KPK dari 12, 15, dan 20 adalah...", o: ["60", "120", "30", "45"], a: "60" },
-            { q: "FPB dari 48 dan 72 adalah...", o: ["24", "12", "8", "36"], a: "24" },
-            { q: "Hasil dari 2/3 + 1/4 - 1/2 adalah...", o: ["5/12", "7/12", "1/3", "1/12"], a: "5/12" },
-            { q: "Bentuk desimal dari 3/8 adalah...", o: ["0,375", "0,125", "0,875", "0,333"], a: "0,375" },
-            { q: "Pecahan di antara 1/3 dan 1/2 adalah...", o: ["5/12", "1/4", "3/4", "2/5"], a: "5/12" },
-            { q: "15% dari Rp 200.000 adalah...", o: ["Rp 30.000", "Rp 15.000", "Rp 20.000", "Rp 35.000"], a: "Rp 30.000" },
-            { q: "Jika 3/4 = x/20, maka nilai x adalah...", o: ["15", "12", "10", "16"], a: "15" },
-            { q: "Hasil dari 1,2 x 0,5 adalah...", o: ["0,6", "0,06", "6,0", "0,65"], a: "0,6" }
-        ]},
-        { level: 2, topic: "Himpunan", qs: [
-            { q: "A = {bilangan prima < 10}. Anggota A adalah...", o: ["{2, 3, 5, 7}", "{1, 2, 3, 5, 7}", "{3, 5, 7, 9}", "{2, 4, 6, 8}"], a: "{2, 3, 5, 7}" },
-            { q: "Banyaknya himpunan bagian dari B = {a, b, c} adalah...", o: ["8", "6", "9", "3"], a: "8" },
-            { q: "P = {1,2,3,4} dan Q = {3,4,5}. P ∩ Q adalah...", o: ["{3, 4}", "{1, 2, 5}", "{1, 2, 3, 4, 5}", "{ }"], a: "{3, 4}" },
-            { q: "M = {x | 2 < x ≤ 6, x ∈ genap}. n(M) adalah...", o: ["2", "3", "4", "1"], a: "2" },
-            { q: "Gabungan (P ∪ Q) dari P={a,b} dan Q={b,c} adalah...", o: ["{a, b, c}", "{b}", "{a, c}", "{a, b, b, c}"], a: "{a, b, c}" },
-            { q: "Dari 30 anak, 20 suka Mat, 15 suka IPA, 5 tidak suka keduanya. Yg suka keduanya?", o: ["10 anak", "5 anak", "15 anak", "8 anak"], a: "10 anak" },
-            { q: "Komplemen dari himpunan A disimbolkan dengan...", o: ["A' atau A^c", "A ∩ B", "A ∪ B", "A - B"], a: "A' atau A^c" },
-            { q: "Himpunan semesta untuk {2, 4, 6} adalah...", o: ["Bilangan Genap", "Bilangan Ganjil", "Bilangan Prima", "Bilangan Negatif"], a: "Bilangan Genap" },
-            { q: "A - B berarti...", o: ["Anggota A yang bukan anggota B", "Anggota B yang bukan A", "Irisan A dan B", "Gabungan A dan B"], a: "Anggota A yang bukan anggota B" },
-            { q: "Jika n(A)=5, n(B)=4, n(A∩B)=2, maka n(A∪B) = ...", o: ["7", "9", "11", "5"], a: "7" }
-        ]},
-        { level: 3, topic: "Bentuk Aljabar Dasar", qs: [
-            { q: "Koefisien x² pada 3x² - 5x + 7 adalah...", o: ["3", "-5", "7", "2"], a: "3" },
-            { q: "Bentuk sederhana dari 4a - 3b + 2a + 5b adalah...", o: ["6a + 2b", "6a - 2b", "2a + 8b", "6a + 8b"], a: "6a + 2b" },
-            { q: "Hasil kali (x + 3)(x - 2) adalah...", o: ["x² + x - 6", "x² - x - 6", "x² + 5x - 6", "x² - 6"], a: "x² + x - 6" },
-            { q: "Hasil pembagian (6x²y) : (2xy) adalah...", o: ["3x", "3y", "3xy", "4x"], a: "3x" },
-            { q: "Jika p = -2 dan q = 3, nilai p² - 2q adalah...", o: ["-2", "10", "4", "-10"], a: "-2" },
-            { q: "Bentuk sederhana dari 2(3x - 4) - 3(x + 1) adalah...", o: ["3x - 11", "3x - 7", "3x - 5", "9x - 11"], a: "3x - 11" },
-            { q: "KPK dari 3a²b dan 4ab² adalah...", o: ["12a²b²", "ab", "12ab", "7a²b²"], a: "12a²b²" },
-            { q: "Faktor dari 2x + 6y adalah...", o: ["2(x + 3y)", "2(x + 6y)", "6(x + y)", "3(2x + y)"], a: "2(x + 3y)" },
-            { q: "Substitusi x=4 ke persamaan 5x - 8 menghasilkan...", o: ["12", "28", "20", "15"], a: "12" },
-            { q: "Kuadrat dari (a + b)² adalah...", o: ["a² + 2ab + b²", "a² + b²", "a² - 2ab + b²", "2a + 2b"], a: "a² + 2ab + b²" }
-        ]},
-        { level: 4, topic: "PLSV & PtLSV", qs: [
-            { q: "Penyelesaian dari 3x - 5 = 10 adalah...", o: ["x = 5", "x = -5", "x = 15", "x = 3"], a: "x = 5" },
-            { q: "Jika 2(x + 4) = 14, maka nilai x adalah...", o: ["3", "4", "5", "6"], a: "3" },
-            { q: "Nilai x dari persamaan 5x - 3 = 2x + 9 adalah...", o: ["4", "3", "5", "6"], a: "4" },
-            { q: "Himpunan penyelesaian dari 2x + 4 > 10 adalah...", o: ["x > 3", "x < 3", "x > -3", "x = 3"], a: "x > 3" },
-            { q: "Penyelesaian dari -3x < 12 adalah...", o: ["x > -4", "x < -4", "x < 4", "x > 4"], a: "x > -4" },
-            { q: "Keliling persegi panjang 40 cm. Panjang (x+5), lebar (x-1). Nilai x?", o: ["8", "10", "6", "12"], a: "8" },
-            { q: "3a - 4 ≤ a + 8. Nilai a maksimal (bulat) adalah...", o: ["6", "5", "7", "8"], a: "6" },
-            { q: "Jumlah 3 bilangan ganjil berurutan adalah 45. Bilangan terkecil?", o: ["13", "11", "15", "17"], a: "13" },
-            { q: "Sebuah bus memuat maksimal 40 orang. PtLSV yang tepat:", o: ["x ≤ 40", "x < 40", "x > 40", "x ≥ 40"], a: "x ≤ 40" },
-            { q: "Nilai m dari (m/2) + 3 = 7 adalah...", o: ["8", "4", "10", "6"], a: "8" }
-        ]},
-        { level: 5, topic: "Perbandingan (Rasio)", qs: [
-            { q: "Bentuk sederhana perbandingan 45 cm : 1,5 m adalah...", o: ["3 : 10", "3 : 1", "1 : 3", "30 : 1"], a: "3 : 10" },
-            { q: "Jarak peta 5 cm, skala 1:200.000. Jarak sebenarnya?", o: ["10 km", "100 km", "1 km", "50 km"], a: "10 km" },
-            { q: "Perbandingan uang A dan B = 2 : 3. Jumlah Rp50.000. Uang A?", o: ["Rp 20.000", "Rp 30.000", "Rp 15.000", "Rp 25.000"], a: "Rp 20.000" },
-            { q: "3 liter bensin untuk 36 km. Jarak untuk 5 liter bensin?", o: ["60 km", "50 km", "72 km", "48 km"], a: "60 km" },
-            { q: "Pekerjaan selesai 20 hari oleh 6 orang. Jika dikerjakan 4 orang?", o: ["30 hari", "15 hari", "24 hari", "40 hari"], a: "30 hari" },
-            { q: "Tinggi tiang 4m, bayangan 6m. Tinggi pohon jika bayangan 9m?", o: ["6 m", "5 m", "8 m", "12 m"], a: "6 m" },
-            { q: "Skala peta 1:1.000.000. Jarak 2,5 km di peta adalah...", o: ["0,25 cm", "2,5 cm", "25 cm", "0,025 cm"], a: "0,25 cm" },
-            { q: "Rasio usia Ayah (48th) dan Anak (16th) adalah...", o: ["3 : 1", "4 : 1", "1 : 3", "2 : 1"], a: "3 : 1" },
-            { q: "Kecepatan 60 km/jam butuh 2 jam. Jika 80 km/jam?", o: ["1,5 jam", "2,5 jam", "1 jam", "3 jam"], a: "1,5 jam" },
-            { q: "1 lusin pensil Rp36.000. Harga 5 batang pensil?", o: ["Rp 15.000", "Rp 12.000", "Rp 10.000", "Rp 18.000"], a: "Rp 15.000" }
-        ]},
-        { level: 6, topic: "Aritmetika Sosial", qs: [
-            { q: "Harga beli Rp50.000, untung 15%. Harga jualnya?", o: ["Rp 57.500", "Rp 65.000", "Rp 55.000", "Rp 60.000"], a: "Rp 57.500" },
-            { q: "Beli Rp80.000, jual Rp72.000. Persentase ruginya?", o: ["10%", "8%", "12%", "5%"], a: "10%" },
-            { q: "Bruto 100 kg, Tara 5%. Netto-nya adalah...", o: ["95 kg", "105 kg", "50 kg", "90 kg"], a: "95 kg" },
-            { q: "Bunga tabungan 12% per tahun. Tabung Rp1.000.000. Bunga 8 bulan?", o: ["Rp 80.000", "Rp 120.000", "Rp 60.000", "Rp 96.000"], a: "Rp 80.000" },
-            { q: "Diskon 20% untuk baju Rp150.000. Harga yang dibayar?", o: ["Rp 120.000", "Rp 130.000", "Rp 100.000", "Rp 115.000"], a: "Rp 120.000" },
-            { q: "Rumus mencari Tara adalah...", o: ["Bruto - Netto", "Bruto + Netto", "Netto - Bruto", "Bruto x Netto"], a: "Bruto - Netto" },
-            { q: "Koperasi memberi pinjaman Rp2 juta, bunga 10% setahun. Cicilan per bulan?", o: ["Rp 183.333", "Rp 200.000", "Rp 150.000", "Rp 210.000"], a: "Rp 183.333" },
-            { q: "Harga setelah diskon 10% adalah Rp90.000. Harga awal?", o: ["Rp 100.000", "Rp 110.000", "Rp 99.000", "Rp 120.000"], a: "Rp 100.000" },
-            { q: "Rumus Persentase Untung adalah...", o: ["(Untung/Beli)x100%", "(Untung/Jual)x100%", "(Beli/Untung)x100%", "(Jual/Beli)x100%"], a: "(Untung/Beli)x100%" },
-            { q: "Pedagang telur beli 10kg=Rp200.000. Busuk 1kg. Dijual Rp25.000/kg. Hasil?", o: ["Untung Rp 25.000", "Rugi Rp 25.000", "Untung Rp 50.000", "Impas"], a: "Untung Rp 25.000" }
-        ]},
-        { level: 7, topic: "Garis & Sudut", qs: [
-            { q: "Sudut yang besarnya antara 90° dan 180° disebut sudut...", o: ["Tumpul", "Lancip", "Refleks", "Lurus"], a: "Tumpul" },
-            { q: "Penyiku (komplemen) dari sudut 35° adalah...", o: ["55°", "145°", "45°", "65°"], a: "55°" },
-            { q: "Pelurus (suplemen) dari sudut 110° adalah...", o: ["70°", "90°", "80°", "250°"], a: "70°" },
-            { q: "Dua garis yang dipotong garis lain membentuk sudut sehadap yang...", o: ["Sama besar", "Berjumlah 180°", "Berjumlah 90°", "Berbeda"], a: "Sama besar" },
-            { q: "Sudut dalam sepihak berjumlah...", o: ["180°", "90°", "360°", "Sama besar"], a: "180°" },
-            { q: "Sudut bertolak belakang besarnya...", o: ["Selalu sama", "Berjumlah 180°", "Berjumlah 90°", "Selalu berbeda"], a: "Selalu sama" },
-            { q: "Besar sudut satu putaran penuh adalah...", o: ["360°", "180°", "90°", "270°"], a: "360°" },
-            { q: "Sudut A = (2x)°, Sudut B = (3x)°. Jika saling berpelurus, nilai x?", o: ["36", "18", "45", "90"], a: "36" },
-            { q: "Pada jam 15:00, sudut terkecil jarum jam adalah...", o: ["90°", "180°", "150°", "120°"], a: "90°" },
-            { q: "Garis yang membagi sudut menjadi dua sama besar disebut...", o: ["Garis bagi", "Garis berat", "Garis sumbu", "Garis tinggi"], a: "Garis bagi" }
-        ]},
-        { level: 8, topic: "Segitiga & Segiempat", qs: [
-            { q: "Jumlah ketiga sudut dalam segitiga adalah...", o: ["180°", "360°", "90°", "270°"], a: "180°" },
-            { q: "Luas jajar genjang alas 8 cm, tinggi 5 cm adalah...", o: ["40 cm²", "20 cm²", "13 cm²", "80 cm²"], a: "40 cm²" },
-            { q: "Rumus luas layang-layang adalah...", o: ["1/2 x d1 x d2", "a x t", "1/2 x a x t", "(a+b)/2 x t"], a: "1/2 x d1 x d2" },
-            { q: "Segitiga dengan sisi 5, 5, dan 8 disebut segitiga...", o: ["Sama kaki", "Sama sisi", "Siku-siku", "Sembarang"], a: "Sama kaki" },
-            { q: "Keliling belah ketupat dengan sisi 12 cm adalah...", o: ["48 cm", "24 cm", "144 cm", "36 cm"], a: "48 cm" },
-            { q: "Luas trapesium siku-siku: alas 10, atas 6, tinggi 4. Luasnya?", o: ["32 cm²", "64 cm²", "24 cm²", "40 cm²"], a: "32 cm²" },
-            { q: "Syarat terbentuknya segitiga, jumlah 2 sisi harus...", o: ["Lebih besar dari sisi ke-3", "Sama dengan sisi ke-3", "Lebih kecil", "Sembarang"], a: "Lebih besar dari sisi ke-3" },
-            { q: "Segiempat yang semua sisinya sama panjang, sudutnya 90°...", o: ["Persegi", "Belah ketupat", "Persegi panjang", "Trapesium"], a: "Persegi" },
-            { q: "Sudut alas segitiga sama kaki adalah 50°. Sudut puncaknya?", o: ["80°", "130°", "50°", "100°"], a: "80°" },
-            { q: "Luas segitiga alas 12 cm, luasnya 60 cm². Tingginya?", o: ["10 cm", "5 cm", "12 cm", "8 cm"], a: "10 cm" }
-        ]},
-        { level: 9, topic: "Penyajian Data", qs: [
-            { q: "Diagram yang menggunakan gambar untuk mewakili data disebut...", o: ["Piktogram", "Diagram Batang", "Diagram Garis", "Diagram Lingkaran"], a: "Piktogram" },
-            { q: "Sudut pusat data 25% pada diagram lingkaran adalah...", o: ["90°", "25°", "180°", "45°"], a: "90°" },
-            { q: "Diagram yang paling tepat untuk tren suhu dari waktu ke waktu...", o: ["Diagram Garis", "Diagram Batang", "Piktogram", "Tabel"], a: "Diagram Garis" },
-            { q: "Satu lingkaran penuh mewakili...", o: ["100% atau 360°", "50% atau 180°", "100% atau 100°", "10% atau 36°"], a: "100% atau 360°" },
-            { q: "Diketahui sudut pusat IPA 120°. Jika total 300 siswa, suka IPA?", o: ["100 siswa", "120 siswa", "150 siswa", "80 siswa"], a: "100 siswa" },
-            { q: "Tabel distribusi frekuensi digunakan untuk...", o: ["Mengelompokkan data", "Menghitung luas", "Menggambar garis", "Mencari persentase"], a: "Mengelompokkan data" },
-            { q: "Pada diagram batang, tinggi batang menunjukkan...", o: ["Frekuensi/Jumlah", "Kategori", "Waktu", "Persentase"], a: "Frekuensi/Jumlah" },
-            { q: "Kelemahan diagram lingkaran adalah...", o: ["Sulit melihat jumlah pasti tanpa perhitungan", "Ukurannya besar", "Warnanya terlalu banyak", "Hanya untuk suhu"], a: "Sulit melihat jumlah pasti tanpa perhitungan" },
-            { q: "Untuk membandingkan 2 data berbeda di 1 kategori pakai...", o: ["Diagram Batang Ganda", "Diagram Garis", "Piktogram", "Lingkaran"], a: "Diagram Batang Ganda" },
-            { q: "Data kualitatif contohnya adalah...", o: ["Warna favorit", "Tinggi badan", "Berat badan", "Nilai ujian"], a: "Warna favorit" }
-        ]},
-        { level: 10, topic: "Ujian Akhir Kelas 7 (HOTS)", qs: [
-            { q: "Budi beli 3 apel, 2 jeruk = Rp15rb. 1 apel=Rp3rb. Harga 1 jeruk?", o: ["Rp 3.000", "Rp 2.500", "Rp 4.000", "Rp 2.000"], a: "Rp 3.000" },
-            { q: "Skor benar=4, salah=-2, kosong=0. Jawab 40, benar 30, kosong 2. Skor?", o: ["104", "120", "116", "110"], a: "104" }, // 30(4) + 8(-2) + 2(0) = 120 - 16 = 104
-            { q: "Luas sawah 1/3 ditanam padi, 1/4 jagung, sisa 10ha kedelai. Total sawah?", o: ["24 ha", "12 ha", "20 ha", "30 ha"], a: "24 ha" }, // 1 - (4/12 + 3/12) = 5/12. 5/12 x = 10 -> x = 24
-            { q: "KPK dua bilangan adalah 60, FPB-nya 5. Jika bil pertama 15, bil kedua?", o: ["20", "25", "30", "12"], a: "20" }, // a x b = KPK x FPB -> 15b = 300 -> b=20
-            { q: "Harga awal sepatu Rp400.000, diskon 50%+20%. Harga bayar?", o: ["Rp 160.000", "Rp 120.000", "Rp 200.000", "Rp 180.000"], a: "Rp 160.000" }, // 50% of 400k = 200k. 20% of 200k = 40k. 200k-40k = 160k
-            { q: "Perbandingan A:B=3:4, B:C=2:5. Jika uang A Rp30.000, uang C?", o: ["Rp 100.000", "Rp 80.000", "Rp 120.000", "Rp 60.000"], a: "Rp 100.000" }, // A:B:C = 3:4:10. 3 units = 30k -> 1 unit = 10k. C = 100k
-            { q: "Dari 40 orang, 25 suka teh, 20 kopi, 7 tdk keduanya. Yg suka teh saja?", o: ["13 orang", "12 orang", "15 orang", "10 orang"], a: "13 orang" }, // n(T u K) = 33. n(T n K) = 25+20-33 = 12. Teh saja = 25-12 = 13.
-            { q: "Besar pelurus sebuah sudut adalah 4 kali sudut tsb. Sudut itu adalah...", o: ["36°", "45°", "72°", "18°"], a: "36°" }, // 180-x = 4x -> 5x = 180 -> x=36
-            { q: "Pembangunan jembatan target 40 hari/15 orang. Jalan 10 hari, henti 5 hari. Tambah orang?", o: ["3 orang", "18 orang", "5 orang", "2 orang"], a: "3 orang" }, // Sisa 30 hari. Beban = 30x15 = 450. Sisa waktu 25. Pekerja = 450/25 = 18. Tambah = 3.
-            { q: "Sebuah persegi panjang dipotong pojoknya (persegi 2cm). Perubahan keliling?", o: ["Tetap", "Berkurang", "Bertambah", "Tergantung panjang awal"], a: "Tetap" }
-        ]},
-    ],
-
-    8: [ // KELAS 8 - 10 LEVEL
-        { level: 1, topic: "Pola Bilangan", qs: [
-            { q: "Suku ke-10 dari barisan 2, 4, 6, 8, ... adalah...", o: ["20", "22", "18", "16"], a: "20" },
-            { q: "Pola persegi pada suku ke-6 adalah...", o: ["36", "25", "49", "30"], a: "36" },
-            { q: "Rumus suku ke-n barisan bilangan ganjil adalah...", o: ["2n - 1", "2n + 1", "n²", "2n"], a: "2n - 1" },
-            { q: "Suku ke-8 dari barisan Fibonacci 1, 1, 2, 3, 5... adalah...", o: ["21", "13", "34", "15"], a: "21" },
-            { q: "Dua suku berikutnya dari 3, 7, 11, 15... adalah...", o: ["19, 23", "18, 22", "19, 24", "20, 25"], a: "19, 23" },
-            { q: "Pola bilangan segitiga (1, 3, 6, 10...). Suku ke-5 adalah...", o: ["15", "14", "16", "21"], a: "15" },
-            { q: "Rumus barisan aritmetika adalah Un = ...", o: ["a + (n-1)b", "ar^(n-1)", "a + nb", "a - (n-1)b"], a: "a + (n-1)b" },
-            { q: "Barisan 1, 4, 9, 16, 25... Suku ke-10 adalah...", o: ["100", "81", "121", "144"], a: "100" },
-            { q: "Beda (b) dari barisan 15, 12, 9, 6... adalah...", o: ["-3", "3", "-4", "4"], a: "-3" },
-            { q: "Tiga suku berikutnya dari 2, -4, 8, -16... (Geometri)", o: ["32, -64, 128", "-32, 64, -128", "24, -32, 40", "30, -60, 120"], a: "32, -64, 128" }
-        ]},
-        { level: 2, topic: "Koordinat Kartesius", qs: [
-            { q: "Titik (3, -5) berada di kuadran...", o: ["IV", "III", "II", "I"], a: "IV" },
-            { q: "Jarak titik (-4, 3) terhadap sumbu X adalah...", o: ["3 satuan", "4 satuan", "-3 satuan", "-4 satuan"], a: "3 satuan" },
-            { q: "Titik P memotong sumbu Y di angka 5. Koordinat P adalah...", o: ["(0, 5)", "(5, 0)", "(1, 5)", "(5, 5)"], a: "(0, 5)" },
-            { q: "Jarak antara titik (2,1) dan (5,5) adalah...", o: ["5", "4", "3", "7"], a: "5" },
-            { q: "Garis y = 4 sejajar dengan sumbu...", o: ["X", "Y", "Z", "Tidak sejajar keduanya"], a: "X" },
-            { q: "Posisi (-3, -3) berada di area yang nilai X dan Y-nya...", o: ["Keduanya negatif", "Keduanya positif", "X negatif Y positif", "X positif Y negatif"], a: "Keduanya negatif" },
-            { q: "Titik yang memiliki jarak 2 satuan ke sumbu Y dan 5 ke sumbu X (Kuadran 1)", o: ["(2, 5)", "(5, 2)", "(2, -5)", "(-2, 5)"], a: "(2, 5)" },
-            { q: "Garis yang menghubungkan (-2,0) dan (2,0) berhimpit pada sumbu...", o: ["X", "Y", "Kuadran I", "Kuadran II"], a: "X" },
-            { q: "Koordinat titik asal (origin) adalah...", o: ["(0, 0)", "(1, 1)", "(-1, -1)", "(0, 1)"], a: "(0, 0)" },
-            { q: "Bangun dari titik A(0,0), B(4,0), C(4,3), D(0,3) adalah...", o: ["Persegi panjang", "Persegi", "Jajar genjang", "Trapesium"], a: "Persegi panjang" }
-        ]},
-        { level: 3, topic: "Relasi & Fungsi", qs: [
-            { q: "Syarat sebuah relasi disebut fungsi (pemetaan) adalah...", o: ["Setiap anggota domain punya tepat 1 pasangan", "Kodomain harus habis terpasang", "Domain boleh punya >1 pasangan", "Domain boleh kosong"], a: "Setiap anggota domain punya tepat 1 pasangan" },
-            { q: "Diketahui f(x) = 3x - 2. Nilai f(4) adalah...", o: ["10", "12", "14", "8"], a: "10" },
-            { q: "Himpunan daerah asal disebut...", o: ["Domain", "Kodomain", "Range", "Relasi"], a: "Domain" },
-            { q: "Jika f(x) = ax + b, f(1)=3, f(2)=5. Rumus f(x)?", o: ["2x + 1", "x + 2", "3x", "2x - 1"], a: "2x + 1" },
-            { q: "Himpunan hasil pemetaan disebut...", o: ["Range", "Domain", "Kodomain", "Pemetaan"], a: "Range" },
-            { q: "Banyak pemetaan dari himp A(2 anggota) ke B(3 anggota) adalah...", o: ["3² = 9", "2³ = 8", "3x2 = 6", "2+3 = 5"], a: "3² = 9" },
-            { q: "Jika f(x) = x² - 1, bayangan dari -3 adalah...", o: ["8", "-10", "10", "-8"], a: "8" },
-            { q: "Manakah yang merupakan fungsi? {(1,a), (2,b), (3,c)} atau {(1,a), (1,b)}", o: ["{(1,a), (2,b), (3,c)}", "{(1,a), (1,b)}", "Keduanya", "Bukan keduanya"], a: "{(1,a), (2,b), (3,c)}" },
-            { q: "Korespodensi satu-satu mensyaratkan...", o: ["n(A) = n(B)", "n(A) > n(B)", "n(A) < n(B)", "Tidak ada syarat"], a: "n(A) = n(B)" },
-            { q: "Banyak korespodensi satu-satu himpunan A(3 anggota) ke B adalah...", o: ["3! = 6", "3² = 9", "3³ = 27", "3"], a: "3! = 6" }
-        ]},
-        { level: 4, topic: "Persamaan Garis Lurus", qs: [
-            { q: "Gradien (m) dari garis y = -2x + 5 adalah...", o: ["-2", "5", "2", "3"], a: "-2" },
-            { q: "Rumus persamaan garis lurus bentuk umum adalah...", o: ["y = mx + c", "y = cx + m", "y = x² + c", "y = c/m"], a: "y = mx + c" },
-            { q: "Gradien garis yang melalui titik (0,0) dan (4,8) adalah...", o: ["2", "4", "1/2", "8"], a: "2" },
-            { q: "Dua garis tegak lurus memiliki hubungan gradien...", o: ["m1 x m2 = -1", "m1 = m2", "m1 + m2 = 0", "m1 x m2 = 1"], a: "m1 x m2 = -1" },
-            { q: "Persamaan garis melalui (0,0) bergradien 3 adalah...", o: ["y = 3x", "y = x + 3", "x = 3y", "y = -3x"], a: "y = 3x" },
-            { q: "Persamaan garis dengan gradien 2 melalui titik (1, 4)", o: ["y = 2x + 2", "y = 2x + 4", "y = 4x + 2", "y = 2x - 2"], a: "y = 2x + 2" },
-            { q: "Gradien garis dari persamaan 4x - 2y = 10 adalah...", o: ["2", "-2", "4", "5"], a: "2" },
-            { q: "Garis sejajar dengan y = 5x - 3 memiliki gradien...", o: ["5", "-5", "1/5", "-1/5"], a: "5" },
-            { q: "Titik potong sumbu Y untuk persamaan y = 3x - 7 adalah...", o: ["(0, -7)", "(-7, 0)", "(0, 7)", "(3, -7)"], a: "(0, -7)" },
-            { q: "Persamaan garis melalui (1,2) dan (3,6) adalah...", o: ["y = 2x", "y = 3x - 1", "y = x + 1", "y = 2x + 2"], a: "y = 2x" }
-        ]},
-        { level: 5, topic: "Sistem Persamaan Linear Dua Variabel", qs: [
-            { q: "Penyelesaian dari x + y = 6 dan x - y = 2 adalah...", o: ["(4, 2)", "(2, 4)", "(5, 1)", "(3, 3)"], a: "(4, 2)" },
-            { q: "2x + y = 7 dan x + y = 4. Nilai x adalah...", o: ["3", "1", "4", "2"], a: "3" },
-            { q: "Metode menghilangkan salah satu variabel disebut...", o: ["Eliminasi", "Substitusi", "Campuran", "Grafik"], a: "Eliminasi" },
-            { q: "Harga 1 pulpen & 1 buku Rp5.000, 2 pulpen & 1 buku Rp7.000. Harga 1 pulpen?", o: ["Rp 2.000", "Rp 3.000", "Rp 1.000", "Rp 4.000"], a: "Rp 2.000" },
-            { q: "Metode mengganti variabel dengan nilai variabel lain disebut...", o: ["Substitusi", "Eliminasi", "Distribusi", "Grafik"], a: "Substitusi" },
-            { q: "Umur Kakak + Adik = 30. Kakak - Adik = 4. Umur Kakak?", o: ["17", "13", "15", "16"], a: "17" },
-            { q: "Solusi 3x - y = 5 dan x + y = 7 adalah...", o: ["x=3, y=4", "x=4, y=3", "x=2, y=5", "x=5, y=2"], a: "x=3, y=4" },
-            { q: "Kandang berisi 20 ayam & kambing. Jumlah kaki 54. Banyak ayam?", o: ["13", "7", "10", "15"], a: "13" }, // a+k=20, 2a+4k=54. a=13, k=7
-            { q: "Jika ax + by = c digambar, bentuknya berupa...", o: ["Garis Lurus", "Kurva", "Lingkaran", "Titik"], a: "Garis Lurus" },
-            { q: "SPLDV tidak memiliki penyelesaian jika kedua garis...", o: ["Sejajar", "Berpotongan", "Tegak Lurus", "Berhimpit"], a: "Sejajar" }
-        ]},
-        { level: 6, topic: "Teorema Pythagoras", qs: [
-            { q: "Segitiga siku-siku alas 6, tinggi 8. Sisi miring?", o: ["10", "12", "14", "100"], a: "10" },
-            { q: "Berdasarkan c² = a² + b², jika c sisi terpanjang, segitiga ini...", o: ["Siku-siku", "Lancip", "Tumpul", "Sembarang"], a: "Siku-siku" },
-            { q: "Tripel Pythagoras yang tepat adalah...", o: ["5, 12, 13", "4, 5, 6", "7, 10, 15", "8, 9, 10"], a: "5, 12, 13" },
-            { q: "Diagonal persegi dengan sisi 5 cm adalah...", o: ["5√2 cm", "10 cm", "25 cm", "5√3 cm"], a: "5√2 cm" },
-            { q: "Tinggi segitiga sama sisi berukuran sisi 4 cm adalah...", o: ["2√3 cm", "2 cm", "4√2 cm", "8 cm"], a: "2√3 cm" },
-            { q: "Jika a² + b² < c², segitiga tersebut adalah...", o: ["Tumpul", "Siku-siku", "Lancip", "Sama sisi"], a: "Tumpul" },
-            { q: "Jarak kapal layar 15 km ke utara, lalu 8 km ke timur dari pelabuhan?", o: ["17 km", "23 km", "12 km", "7 km"], a: "17 km" },
-            { q: "Sisi belah ketupat yang d1=16 dan d2=12 adalah...", o: ["10 cm", "20 cm", "14 cm", "8 cm"], a: "10 cm" },
-            { q: "Sisi miring 25, alas 7. Tinggi segitiga?", o: ["24", "26", "20", "22"], a: "24" },
-            { q: "Tangga 5m bersandar di tembok. Jarak kaki tangga ke tembok 3m. Tinggi tembok?", o: ["4m", "2m", "6m", "3m"], a: "4m" }
-        ]},
-        { level: 7, topic: "Lingkaran", qs: [
-            { q: "Rumus keliling lingkaran adalah...", o: ["2πr atau πd", "πr²", "1/2πr", "π²r"], a: "2πr atau πd" },
-            { q: "Daerah dalam lingkaran yang dibatasi 2 jari-jari dan busur disebut...", o: ["Juring", "Tembereng", "Tali Busur", "Apotema"], a: "Juring" },
-            { q: "Garis dari pusat tegak lurus ke tali busur disebut...", o: ["Apotema", "Jari-jari", "Diameter", "Garis singgung"], a: "Apotema" },
-            { q: "Besar sudut keliling jika sudut pusatnya 100° (menghadap busur sama)?", o: ["50°", "100°", "200°", "25°"], a: "50°" },
-            { q: "Luas lingkaran dengan r = 7 cm (π=22/7) adalah...", o: ["154 cm²", "44 cm²", "22 cm²", "314 cm²"], a: "154 cm²" },
-            { q: "Sudut keliling yang menghadap diameter besarnya...", o: ["90°", "180°", "45°", "360°"], a: "90°" },
-            { q: "Panjang busur lingkaran (sudut pusat 90°, r=7) adalah...", o: ["11 cm", "22 cm", "44 cm", "154 cm"], a: "11 cm" }, // 90/360 * 44 = 11
-            { q: "Garis yang menyinggung lingkaran di satu titik disebut...", o: ["Garis Singgung", "Tali Busur", "Diameter", "Sekan"], a: "Garis Singgung" },
-            { q: "Jarak titik pusat dua lingkaran d=13, r1=7, r2=2. Garis singgung luar (l)?", o: ["12 cm", "10 cm", "15 cm", "14 cm"], a: "12 cm" }, // l = sqrt(13^2 - (7-2)^2) = 12
-            { q: "Daerah yang dibatasi oleh tali busur dan busur disebut...", o: ["Tembereng", "Juring", "Apotema", "Cincin"], a: "Tembereng" }
-        ]},
-        { level: 8, topic: "Bangun Ruang Sisi Datar", qs: [
-            { q: "Banyak rusuk pada kubus adalah...", o: ["12", "8", "6", "10"], a: "12" },
-            { q: "Volume balok p=5, l=4, t=3 adalah...", o: ["60", "20", "12", "94"], a: "60" },
-            { q: "Luas permukaan kubus sisi 4 cm adalah...", o: ["96 cm²", "64 cm²", "16 cm²", "32 cm²"], a: "96 cm²" },
-            { q: "Rumus volume limas adalah...", o: ["1/3 x Luas Alas x tinggi", "Luas Alas x tinggi", "1/2 x Luas Alas x tinggi", "4/3 x Luas Alas x tinggi"], a: "1/3 x Luas Alas x tinggi" },
-            { q: "Banyak titik sudut pada balok adalah...", o: ["8", "12", "6", "10"], a: "8" },
-            { q: "Prisma segitiga memiliki jumlah sisi sebanyak...", o: ["5", "6", "4", "3"], a: "5" },
-            { q: "Panjang diagonal ruang kubus sisi (a) adalah...", o: ["a√3", "a√2", "2a", "a²"], a: "a√3" },
-            { q: "Kawat panjang 1,5m dibuat kerangka balok 10x8x5. Sisa kawat?", o: ["58 cm", "60 cm", "70 cm", "92 cm"], a: "58 cm" }, // 4(10+8+5) = 4(23) = 92. 150-92=58
-            { q: "Limas segi empat alas persegi sisi 10, tinggi 12. Volume?", o: ["400", "1200", "600", "200"], a: "400" },
-            { q: "Alas prisma segitiga siku-siku (3,4,5), t=10. Luas permukaan total?", o: ["132", "120", "60", "144"], a: "132" } // 2*(1/2*3*4) + (3+4+5)*10 = 12 + 120 = 132
-        ]},
-        { level: 9, topic: "Statistika & Peluang", qs: [
-            { q: "Modus dari data: 2, 4, 4, 5, 5, 5, 6 adalah...", o: ["5", "4", "2", "6"], a: "5" },
-            { q: "Median dari data terurut: 3, 5, 6, 8, 10 adalah...", o: ["6", "5", "7", "8"], a: "6" },
-            { q: "Rata-rata (mean) dari 10, 8, 6, 4 adalah...", o: ["7", "6,5", "8", "6"], a: "7" },
-            { q: "Peluang muncul angka pada pelemparan 1 koin adalah...", o: ["1/2", "1", "0", "1/4"], a: "1/2" },
-            { q: "Ruang sampel pelemparan 1 dadu adalah...", o: ["{1,2,3,4,5,6}", "{1,2}", "{A, G}", "{1,3,5}"], a: "{1,2,3,4,5,6}" },
-            { q: "Peluang muncul mata dadu prima ganjil (dadu 6 sisi) adalah...", o: ["2/6 (1/3)", "3/6", "1/6", "4/6"], a: "2/6 (1/3)" }, // 3, 5
-            { q: "Sebuah kantong isi 3 kelereng merah, 2 biru. Peluang terambil biru?", o: ["2/5", "3/5", "1/2", "2/3"], a: "2/5" },
-            { q: "Frekuensi harapan muncul Angka pelemparan koin 100x adalah...", o: ["50", "25", "100", "75"], a: "50" },
-            { q: "Peluang kejadian pasti terjadi (misal: besok matahari terbit) adalah...", o: ["1", "0", "0,5", "Tak terhingga"], a: "1" },
-            { q: "Banyak titik sampel 2 koin dilempar bersamaan adalah...", o: ["4", "2", "6", "8"], a: "4" }
-        ]},
-        { level: 10, topic: "Ujian Akhir Kelas 8 (HOTS)", qs: [
-            { q: "Barisan: a, 8, b, 14, 17. Nilai a dan b? (Aritmetika)", o: ["5 dan 11", "6 dan 10", "4 dan 12", "5 dan 12"], a: "5 dan 11" },
-            { q: "Luas dua lingkaran L1:L2 = 9:16. Perbandingan jari-jarinya?", o: ["3:4", "9:16", "1:2", "81:256"], a: "3:4" },
-            { q: "Gradien garis yg tegak lurus dengan 2x + 4y = 8 adalah...", o: ["2", "-1/2", "1/2", "-2"], a: "2" }, // m awal = -2/4 = -1/2. m tegak = 2
-            { q: "Kotak tanpa tutup dari karton 10x10. Potong sudut x, ditekuk. Luas alas?", o: ["(10-2x)²", "(10-x)²", "100-x²", "100-4x²"], a: "(10-2x)²" },
-            { q: "Balok p=x+2, l=x, t=3. Volume=105. Nilai x?", o: ["5", "3", "7", "4"], a: "5" }, // (x+2)x*3 = 105 -> x^2+2x-35=0 -> (x+7)(x-5)=0 -> x=5
-            { q: "Garis x=3 menyinggung lingkaran berpusat (0,0). Luas lingkaran?", o: ["9π", "6π", "3π", "18π"], a: "9π" }, // r=3. L=πr²=9π
-            { q: "Dari 3 dadu, titik sampel muncul jumlah mata dadu 3 adalah...", o: ["1", "3", "6", "2"], a: "1" }, // hanya (1,1,1)
-            { q: "Tali busur terpanjang pada lingkaran memiliki nama khusus, yaitu...", o: ["Diameter", "Jari-jari", "Apotema", "Tembereng"], a: "Diameter" },
-            { q: "Rata-rata 4 siswa=7. Masuk 1 siswa, rata-rata jadi 7,2. Nilai siswa tsb?", o: ["8", "7,5", "8,2", "9"], a: "8" }, // Total lama=28. Total baru=36. 36-28=8
-            { q: "Garis singgung persekutuan dalam 2 lingkaran: d=15, r1=6, r2=3. Panjang l?", o: ["12", "9", "10", "14"], a: "12" } // sqrt(15^2 - (6+3)^2) = sqrt(225-81)=sqrt(144)=12
-        ]}
-    ],
-
-    9: [ // KELAS 9 - 10 LEVEL
-        { level: 1, topic: "Perpangkatan", qs: [
-            { q: "Hasil dari 3⁴ adalah...", o: ["81", "12", "27", "64"], a: "81" },
-            { q: "Bentuk sederhana dari 2⁵ x 2³ adalah...", o: ["2⁸", "2¹⁵", "4⁸", "4¹⁵"], a: "2⁸" },
-            { q: "Hasil pembagian 5⁶ : 5⁴ adalah...", o: ["25", "5", "125", "10"], a: "25" },
-            { q: "Bentuk pangkat dari (a²)³ adalah...", o: ["a⁶", "a⁵", "a⁸", "a"], a: "a⁶" },
-            { q: "Nilai dari 10⁻³ adalah...", o: ["0,001", "0,01", "0,0001", "-30"], a: "0,001" },
-            { q: "Hasil dari (-2)³ adalah...", o: ["-8", "8", "-6", "6"], a: "-8" },
-            { q: "Bentuk baku dari 23.000.000 adalah...", o: ["2,3 x 10⁷", "23 x 10⁶", "2,3 x 10⁸", "0,23 x 10⁸"], a: "2,3 x 10⁷" },
-            { q: "Berapapun bilangannya (kecuali 0), jika dipangkatkan 0 hasilnya...", o: ["1", "0", "Bilangan itu sendiri", "Tak hingga"], a: "1" },
-            { q: "Sederhanakan (2xy²)³", o: ["8x³y⁶", "2x³y⁶", "6x³y⁵", "8x³y⁵"], a: "8x³y⁶" },
-            { q: "Massa elektron 9,1 x 10⁻³¹ kg. Penulisan ini disebut...", o: ["Bentuk Baku (Notasi Ilmiah)", "Bentuk Akar", "Pecahan Desimal", "Sistem Basis 10"], a: "Bentuk Baku (Notasi Ilmiah)" }
-        ]},
-        { level: 2, topic: "Bentuk Akar", qs: [
-            { q: "Bentuk sederhana dari √48 adalah...", o: ["4√3", "16√3", "2√12", "3√4"], a: "4√3" },
-            { q: "Hasil dari √8 x √2 adalah...", o: ["4", "16", "2√2", "8"], a: "4" },
-            { q: "√75 - √27 = ...", o: ["2√3", "5√3", "3√3", "8√3"], a: "2√3" },
-            { q: "Rasionalkan pecahan 6 / √3", o: ["2√3", "3√3", "6√3", "2"], a: "2√3" },
-            { q: "Hasil dari (√5 + √2)(√5 - √2) adalah...", o: ["3", "7", "√3", "10"], a: "3" },
-            { q: "Bentuk akar dari a^(2/3) adalah...", o: ["³√(a²)", "²√(a³)", "√(a/3)", "a³√a"], a: "³√(a²)" },
-            { q: "√18 + √50 - √72 = ...", o: ["2√2", "4√2", "√2", "0"], a: "2√2" }, // 3V2 + 5V2 - 6V2 = 2V2
-            { q: "Pecahan 2 / (√5 - 1) dirasionalkan menjadi...", o: ["(√5 + 1)/2", "(√5 - 1)/2", "√5 + 1", "2√5 + 2"], a: "(√5 + 1)/2" },
-            { q: "Akar pangkat tiga dari 64 adalah...", o: ["4", "8", "6", "16"], a: "4" },
-            { q: "Hasil dari √0,0144 adalah...", o: ["0,12", "0,012", "1,2", "0,0012"], a: "0,12" }
-        ]},
-        { level: 3, topic: "Persamaan Kuadrat", qs: [
-            { q: "Akar-akar dari persamaan x² - 4x - 12 = 0 adalah...", o: ["6 dan -2", "-6 dan 2", "3 dan -4", "4 dan -3"], a: "6 dan -2" },
-            { q: "Bentuk umum persamaan kuadrat adalah...", o: ["ax² + bx + c = 0", "mx + c = 0", "a/b x = c", "x² = y"], a: "ax² + bx + c = 0" },
-            { q: "Nilai Diskriminan (D) untuk x² - 2x + 1 = 0 adalah...", o: ["0", "1", "-1", "4"], a: "0" },
-            { q: "Jika D > 0, maka persamaan kuadrat memiliki...", o: ["2 akar Real berbeda", "2 akar Real kembar", "Tidak ada akar Real", "Akar Imajiner"], a: "2 akar Real berbeda" },
-            { q: "Rumus jumlah akar (x1 + x2) adalah...", o: ["-b/a", "c/a", "b/a", "-c/a"], a: "-b/a" },
-            { q: "Hasil kali akar-akar (x1 . x2) dari 2x² - 5x + 6 = 0 adalah...", o: ["3", "-5/2", "5/2", "6"], a: "3" }, // c/a = 6/2 = 3
-            { q: "Faktor dari 4x² - 9 = 0 adalah...", o: ["(2x - 3)(2x + 3)", "(4x - 3)(x + 3)", "(2x - 9)(2x + 1)", "(x - 3)(4x + 3)"], a: "(2x - 3)(2x + 3)" },
-            { q: "Rumus ABC (Kuadratik) adalah...", o: ["(-b ± √D) / 2a", "(b ± √D) / 2a", "(-b ± √D) / a", "(-a ± √D) / 2b"], a: "(-b ± √D) / 2a" },
-            { q: "Persamaan kuadrat yg akar-akarnya 2 dan 3 adalah...", o: ["x² - 5x + 6 = 0", "x² + 5x + 6 = 0", "x² - 6x + 5 = 0", "x² + x - 6 = 0"], a: "x² - 5x + 6 = 0" },
-            { q: "Penyelesaian dari 3x² - 27 = 0 adalah...", o: ["x = 3 atau x = -3", "x = 9 atau x = -9", "x = 3 saja", "x = 9 saja"], a: "x = 3 atau x = -3" }
-        ]},
-        { level: 4, topic: "Fungsi Kuadrat", qs: [
-            { q: "Grafik fungsi kuadrat y = ax² + bx + c berupa...", o: ["Parabola", "Garis Lurus", "Lingkaran", "Hiperbola"], a: "Parabola" },
-            { q: "Jika nilai a > 0, maka grafik fungsi kuadrat akan...", o: ["Terbuka ke atas", "Terbuka ke bawah", "Lurus", "Miring ke kanan"], a: "Terbuka ke atas" },
-            { q: "Sumbu simetri fungsi y = x² - 6x + 5 adalah...", o: ["x = 3", "x = -3", "x = 6", "x = -6"], a: "x = 3" }, // -b/2a = 6/2 = 3
-            { q: "Nilai optimum (Puncak Y) fungsi y = x² - 4x + 4 adalah...", o: ["0", "4", "-4", "2"], a: "0" }, // D/-4a = (16-16)/-4 = 0
-            { q: "Titik potong grafik y = x² - x - 2 terhadap sumbu Y adalah...", o: ["(0, -2)", "(0, 2)", "(-2, 0)", "(2, 0)"], a: "(0, -2)" }, // x=0, y=-2
-            { q: "Jika D < 0 dan a > 0, letak grafik parabola adalah...", o: ["Selalu di atas sumbu X (Definit Positif)", "Menyinggung sumbu X", "Memotong sumbu X", "Definit Negatif"], a: "Selalu di atas sumbu X (Definit Positif)" },
-            { q: "Rumus sumbu simetri adalah...", o: ["x = -b / 2a", "x = b / 2a", "y = -D / 4a", "y = D / 4a"], a: "x = -b / 2a" },
-            { q: "Tinggi peluru h(t) = 40t - 5t². Tinggi maksimum peluru?", o: ["80 m", "40 m", "100 m", "120 m"], a: "80 m" }, // t = -40/-10 = 4. h(4) = 160-80 = 80
-            { q: "Pembuat nol fungsi f(x) = x² - 9 adalah...", o: ["3 dan -3", "9 dan -9", "0 dan 9", "0 dan 3"], a: "3 dan -3" },
-            { q: "Grafik terbuka ke bawah dan menyinggung sumbu X, syaratnya...", o: ["a < 0, D = 0", "a > 0, D = 0", "a < 0, D > 0", "a > 0, D < 0"], a: "a < 0, D = 0" }
-        ]},
-        { level: 5, topic: "Transformasi Geometri (Refleksi & Translasi)", qs: [
-            { q: "Translasi T=(2, -3) pada titik (1,4). Hasilnya?", o: ["(3, 1)", "(1, 1)", "(3, 7)", "(-1, 7)"], a: "(3, 1)" },
-            { q: "Pencerminan (Refleksi) titik (5,2) terhadap sumbu X menghasilkan...", o: ["(5, -2)", "(-5, 2)", "(-5, -2)", "(2, 5)"], a: "(5, -2)" },
-            { q: "Refleksi titik (-3, 4) terhadap sumbu Y menghasilkan...", o: ["(3, 4)", "(-3, -4)", "(3, -4)", "(4, -3)"], a: "(3, 4)" },
-            { q: "Refleksi titik (a,b) terhadap garis y = x bayangannya adalah...", o: ["(b, a)", "(-b, -a)", "(-a, -b)", "(a, -b)"], a: "(b, a)" },
-            { q: "Titik A(2,1) ditranslasi T(3,2) lalu translasi T(-1,0). Akhirnya?", o: ["(4, 3)", "(5, 3)", "(4, 1)", "(6, 3)"], a: "(4, 3)" },
-            { q: "Refleksi terhadap titik pusat (0,0) mengubah (x,y) menjadi...", o: ["(-x, -y)", "(x, -y)", "(-x, y)", "(y, x)"], a: "(-x, -y)" },
-            { q: "Benda dan bayangannya pada translasi memiliki...", o: ["Ukuran & bentuk sama (Isometri)", "Bentuk sama, ukuran beda", "Bentuk beda", "Terbalik (mirror)"], a: "Ukuran & bentuk sama (Isometri)" },
-            { q: "Titik B(4, -1) direfleksi ke y = -x, menjadi...", o: ["(1, -4)", "(-1, 4)", "(-4, 1)", "(4, 1)"], a: "(1, -4)" }, // (x,y) -> (-y,-x) -> (-(-1), -4) -> (1, -4)
-            { q: "Translasi T memindahkan (2,2) ke (5,0). Vektor T?", o: ["(3, -2)", "(3, 2)", "(-3, 2)", "(-3, -2)"], a: "(3, -2)" },
-            { q: "Garis x=3 dicerminkan thd sumbu Y menjadi garis...", o: ["x = -3", "y = 3", "y = -3", "x = 3"], a: "x = -3" }
-        ]},
-        { level: 6, topic: "Transformasi Geometri (Rotasi & Dilatasi)", qs: [
-            { q: "Rotasi pusat (0,0) sudut 90° berlawanan arah jarum jam. (x,y) jadi...", o: ["(-y, x)", "(y, -x)", "(-x, -y)", "(y, x)"], a: "(-y, x)" },
-            { q: "Rotasi 180° berpusat (0,0) mengubah titik (3,4) menjadi...", o: ["(-3, -4)", "(3, -4)", "(-4, 3)", "(4, -3)"], a: "(-3, -4)" }, // Setara refleksi (0,0)
-            { q: "Dilatasi pusat (0,0) faktor k=3 pada titik (2,-1) menjadi...", o: ["(6, -3)", "(5, 2)", "(2/3, -1/3)", "(6, 1)"], a: "(6, -3)" },
-            { q: "Titik (8,4) adalah hasil dilatasi k=2. Titik asalnya?", o: ["(4, 2)", "(16, 8)", "(10, 6)", "(6, 2)"], a: "(4, 2)" },
-            { q: "Luas bangun awal 10 cm². Jika didilatasi k=3, Luas barunya...", o: ["90 cm²", "30 cm²", "60 cm²", "13 cm²"], a: "90 cm²" }, // L_baru = k² * L_awal
-            { q: "Rotasi -90° (searah jarum jam) mengubah (x,y) menjadi...", o: ["(y, -x)", "(-y, x)", "(-x, -y)", "(-y, -x)"], a: "(y, -x)" },
-            { q: "Titik P(-2,5) dirotasi 90° (lawan jarum jam). Hasilnya?", o: ["(-5, -2)", "(5, -2)", "(5, 2)", "(-2, -5)"], a: "(-5, -2)" }, // (-y, x) -> (-5, -2)
-            { q: "Dilatasi faktor pecahan (contoh k=1/2) akan membuat bangun...", o: ["Mengecil", "Membesar", "Berputar", "Terbalik"], a: "Mengecil" },
-            { q: "Pusat dilatasi yang tidak mengubah posisi objek disebut...", o: ["Titik invarian", "Faktor skala", "Pusat rotasi", "Origin"], a: "Titik invarian" },
-            { q: "Segitiga ABC didilatasi k=-1 (pusat 0,0). Hasilnya sama dengan...", o: ["Rotasi 180°", "Translasi", "Refleksi sumbu X", "Rotasi 90°"], a: "Rotasi 180°" }
-        ]},
-        { level: 7, topic: "Kesebangunan & Kekongruenan", qs: [
-            { q: "Syarat 2 bangun kongruen (sama dan sebangun) adalah...", o: ["Sudut bersesuaian sama, sisi bersesuaian sama panjang", "Hanya sudut yang sama", "Sisi sebanding", "Luas sama"], a: "Sudut bersesuaian sama, sisi bersesuaian sama panjang" },
-            { q: "Syarat 2 bangun sebangun adalah sisi bersesuaian memiliki...", o: ["Perbandingan yang sama", "Panjang yang persis sama", "Selisih yang sama", "Luas yang sama"], a: "Perbandingan yang sama" },
-            { q: "Foto 3x4 diperbesar jadi 6xX. Nilai X jika sebangun?", o: ["8", "7", "6", "9"], a: "8" },
-            { q: "Dua buah persegi...", o: ["Selalu sebangun", "Selalu kongruen", "Belum tentu sebangun", "Pasti tidak sebangun"], a: "Selalu sebangun" },
-            { q: "Tinggi orang 1,5m, bayangan 2m. Tinggi tiang jika bayangan 6m?", o: ["4,5 m", "5 m", "4 m", "3 m"], a: "4,5 m" }, // 1,5/2 = t/6 -> t = 4,5
-            { q: "Sisi segitiga kongruen memenuhi syarat S-Sd-S. Kepanjangannya?", o: ["Sisi-Sudut-Sisi", "Sudut-Sisi-Sudut", "Sisi-Sisi-Sisi", "Semua Salah"], a: "Sisi-Sudut-Sisi" },
-            { q: "Dua layang-layang...", o: ["Belum tentu sebangun", "Selalu sebangun", "Pasti kongruen", "Tidak memiliki sifat"], a: "Belum tentu sebangun" },
-            { q: "Segitiga siku-siku dari garis tinggi hipotenusa membentuk...", o: ["3 segitiga sebangun", "2 segitiga kongruen", "1 segitiga", "Tidak ada"], a: "3 segitiga sebangun" },
-            { q: "Simbol matematis untuk 'sebangun' adalah...", o: ["~", "≅", "=", "≠"], a: "~" },
-            { q: "Perbandingan sisi segitiga A:B = 1:2. Luas A 10 cm². Luas B?", o: ["40 cm²", "20 cm²", "100 cm²", "30 cm²"], a: "40 cm²" } // Kuadrat faktor = 2² * 10 = 40
-        ]},
-        { level: 8, topic: "BRSL: Tabung & Kerucut", qs: [
-            { q: "Rumus Volume Tabung adalah...", o: ["πr²t", "2πrt", "1/3 πr²t", "4/3 πr³"], a: "πr²t" },
-            { q: "Luas selimut tabung adalah...", o: ["2πrt", "πr²t", "πrs", "2πr²"], a: "2πrt" },
-            { q: "Luas permukaan tabung tanpa tutup (r, t) adalah...", o: ["πr² + 2πrt", "2πr(r+t)", "πrt", "πr² + πrt"], a: "πr² + 2πrt" },
-            { q: "Rumus Volume Kerucut adalah...", o: ["1/3 πr²t", "πr²t", "πrs", "4/3 πr³"], a: "1/3 πr²t" },
-            { q: "Luas selimut kerucut (garis pelukis s) adalah...", o: ["πrs", "πr(r+s)", "2πrt", "1/3 πr²t"], a: "πrs" },
-            { q: "Garis pelukis (s), tinggi (t), jari-jari (r) kerucut memenuhi...", o: ["s² = r² + t²", "s = r + t", "s² = r² - t²", "s = rt"], a: "s² = r² + t²" },
-            { q: "Tabung & Kerucut punya r dan t sama. V Tabung = 300. V Kerucut?", o: ["100", "900", "150", "200"], a: "100" }, // V_k = 1/3 V_t
-            { q: "Jari-jari tabung 7 cm, tinggi 10. Volume? (π=22/7)", o: ["1540 cm³", "154 cm³", "220 cm³", "3140 cm³"], a: "1540 cm³" },
-            { q: "Kerucut r=3, t=4. Garis pelukis (s) = ...", o: ["5", "7", "25", "1"], a: "5" },
-            { q: "Luas permukaan total kerucut r=5, s=13 (π=3,14)", o: ["282,6", "204,1", "314", "90"], a: "282,6" } // L = πr(r+s) = 3,14*5*(18) = 15.7*18 = 282.6
-        ]},
-        { level: 9, topic: "BRSL: Bola & Gabungan", qs: [
-            { q: "Rumus Volume Bola penuh adalah...", o: ["4/3 πr³", "2/3 πr³", "4πr²", "πr³"], a: "4/3 πr³" },
-            { q: "Rumus Luas Permukaan Bola adalah...", o: ["4πr²", "3πr²", "4/3 πr³", "2πr²"], a: "4πr²" },
-            { q: "Luas permukaan BOLA SETENGAH PADAT (pejal) adalah...", o: ["3πr²", "2πr²", "4πr²", "1/2 πr²"], a: "3πr²" },
-            { q: "Bola dimasukkan presisi dlm tabung (menyinggung alas/tutup/sisi). V Bola : V Tabung?", o: ["2 : 3", "3 : 4", "1 : 2", "1 : 3"], a: "2 : 3" }, // V_bola = 4/3 πr³. V_tab = πr²(2r) = 2πr³. Rasio = (4/3) / 2 = 2/3
-            { q: "Jari-jari bola 10 cm, volumenya (π=3,14)...", o: ["4186,67 cm³", "3140 cm³", "1256 cm³", "418,6 cm³"], a: "4186,67 cm³" }, // 4/3 * 3.14 * 1000 = 4186.66...
-            { q: "Luas permukaan bola jika r=7 (π=22/7) adalah...", o: ["616 cm²", "154 cm²", "308 cm²", "1437 cm²"], a: "616 cm²" }, // 4 * 22/7 * 49 = 4 * 154 = 616
-            { q: "Bentuk tetesan air idealnya merupakan bangun ruang...", o: ["Bola", "Kerucut", "Tabung", "Prisma"], a: "Bola" },
-            { q: "Luas kulit jeruk manis berdiameter 14 cm adalah...", o: ["616 cm²", "308 cm²", "154 cm²", "1232 cm²"], a: "616 cm²" },
-            { q: "Gabungan kerucut (atas) & tabung (bawah). Sisi selimut kerucut disebut...", o: ["Atap", "Alas", "Tutup", "Dasar"], a: "Atap" },
-            { q: "Planet bumi dianggap bola dengan r=6400km. Rumus menghitung Volumenya?", o: ["4/3 x π x 6400³", "4 x π x 6400²", "π x 6400²", "1/3 x π x 6400³"], a: "4/3 x π x 6400³" }
-        ]},
-        { level: 10, topic: "Ujian Akhir Kelas 9 (HOTS & Logika)", qs: [
-            { q: "Jika 2^(x+3) = 64, nilai x?", o: ["3", "4", "2", "6"], a: "3" }, // 2^(x+3) = 2^6 -> x+3=6 -> x=3
-            { q: "Akar-akar dari x² - px + 12 = 0 adalah 3 dan a. Nilai p?", o: ["7", "-7", "4", "12"], a: "7" }, // akar satunya a. 3*a = 12 -> a=4. x1+x2 = p -> 3+4 = 7. p=7
-            { q: "Fungsi kuadrat yg puncaknya (2,-1) dan melalui (0,3). Nilai a?", o: ["1", "-1", "2", "-2"], a: "1" }, // y = a(x-2)^2 - 1 -> 3 = a(0-2)^2 - 1 -> 4 = 4a -> a=1
-            { q: "Garis y=2x-3 ditranslasi T(1,2). Persamaan baru?", o: ["y = 2x - 3", "y = 2x - 1", "y = 2x + 1", "y = -2x - 3"], a: "y = 2x - 3" }, // x' = x+1 -> x=x'-1. y'=y+2 -> y=y'-2. y'-2 = 2(x'-1)-3 -> y'-2 = 2x'-5 -> y = 2x-3
-            { q: "Bangun datar direfleksi thd (0,0), lalu rotasi 180°. Posisinya thd awal?", o: ["Sama persis (Involution)", "Pindah ke kuadran sebelah", "Ukuran membesar", "Terbalik"], a: "Sama persis (Involution)" }, // refleksi 0,0 = rotasi 180. Rotasi 180+180 = 360 = awal
-            { q: "Air penuh di tabung r=10 t=15 dituang ke bola r=10. Sisa air?", o: ["Tumpah (Sisa >0)", "Bola pas penuh (0)", "Bola kurang penuh", "Tidak bisa dihitung"], a: "Tumpah (Sisa >0)" }, // V_t = 1500π. V_b = 4/3*1000π = 1333.3π. Tumpah
-            { q: "Sebuah foto ditempel di karton 40x50. Sisa tepi kiri,kanan,atas 4cm. Bawah?", o: ["8 cm", "4 cm", "6 cm", "10 cm"], a: "8 cm" }, // Lebar foto = 40-8=32. Panjang foto = 50-4-x = 46-x. Sebangun: 32/40 = (46-x)/50 -> 4/5 = (46-x)/50 -> 40 = 46-x -> x=6. Eh tunggu, (40x50) 32/40 = 4/5. 4/5 = P_foto/50. P_foto = 40. 46-x = 40. x = 6! (Ralat: pilihan 6 cm ada). Jawaban: 6 cm.
-            { q: "Bayangan titik (a,b) rotasi 90° adalah (3,2). Titik awal (a,b)?", o: ["(2, -3)", "(-2, 3)", "(3, 2)", "(-3, -2)"], a: "(2, -3)" }, // (x,y) rot90 -> (-y, x). -y=3 -> y=-3. x=2. (2,-3)
-            { q: "Luas permukaan kubus yg panjang diagonal ruangnya 3√3 cm?", o: ["54 cm²", "27 cm²", "9 cm²", "81 cm²"], a: "54 cm²" }, // d=a√3 -> a=3. LP=6x3² = 6x9 = 54
-            { q: "Uang koin, dadu, dadu (3 benda) dilempar bersama. Banyak titik sampel?", o: ["72", "36", "14", "12"], a: "72" } // 2 x 6 x 6 = 72
-        ]}
-    ]
-};
+        const allQuestionsData = {
+            7: [
+                { level: 1, topic: "Bilangan Bulat & Pecahan", qs: [
+                    { q: "Hasil dari -15 + (-12) : 3 adalah...", o: ["-19", "-11", "-9", "-21"], a: "-19" },
+                    { q: "Suhu es 5°C di bawah nol. Setelah dipanaskan naik 12°C. Suhu sekarang?", o: ["7°C", "17°C", "-7°C", "12°C"], a: "7°C" },
+                    { q: "KPK dari 12, 15, dan 20 adalah...", o: ["60", "120", "30", "45"], a: "60" },
+                    { q: "FPB dari 48 dan 72 adalah...", o: ["24", "12", "8", "36"], a: "24" },
+                    { q: "Hasil dari 2/3 + 1/4 - 1/2 adalah...", o: ["5/12", "7/12", "1/3", "1/12"], a: "5/12" },
+                    { q: "Bentuk desimal dari 3/8 adalah...", o: ["0,375", "0,125", "0,875", "0,333"], a: "0,375" },
+                    { q: "Pecahan di antara 1/3 dan 1/2 adalah...", o: ["5/12", "1/4", "3/4", "2/5"], a: "5/12" },
+                    { q: "15% dari Rp 200.000 adalah...", o: ["Rp 30.000", "Rp 15.000", "Rp 20.000", "Rp 35.000"], a: "Rp 30.000" },
+                    { q: "Jika 3/4 = x/20, maka nilai x adalah...", o: ["15", "12", "10", "16"], a: "15" },
+                    { q: "Hasil dari 1,2 x 0,5 adalah...", o: ["0,6", "0,06", "6,0", "0,65"], a: "0,6" }
+                ]},
+                { level: 2, topic: "Himpunan", qs: [
+                    { q: "A = {bilangan prima < 10}. Anggota A adalah...", o: ["{2, 3, 5, 7}", "{1, 2, 3, 5, 7}", "{3, 5, 7, 9}", "{2, 4, 6, 8}"], a: "{2, 3, 5, 7}" },
+                    { q: "Banyaknya himpunan bagian dari B = {a, b, c} adalah...", o: ["8", "6", "9", "3"], a: "8" },
+                    { q: "P = {1,2,3,4} dan Q = {3,4,5}. P ∩ Q adalah...", o: ["{3, 4}", "{1, 2, 5}", "{1, 2, 3, 4, 5}", "{ }"], a: "{3, 4}" },
+                    { q: "M = {x | 2 < x ≤ 6, x ∈ genap}. n(M) adalah...", o: ["2", "3", "4", "1"], a: "2" },
+                    { q: "Gabungan (P ∪ Q) dari P={a,b} dan Q={b,c} adalah...", o: ["{a, b, c}", "{b}", "{a, c}", "{a, b, b, c}"], a: "{a, b, c}" },
+                    { q: "Dari 30 anak, 20 suka Mat, 15 suka IPA, 5 tidak suka keduanya. Yg suka keduanya?", o: ["10 anak", "5 anak", "15 anak", "8 anak"], a: "10 anak" },
+                    { q: "Komplemen dari himpunan A disimbolkan dengan...", o: ["A' atau A^c", "A ∩ B", "A ∪ B", "A - B"], a: "A' atau A^c" },
+                    { q: "Himpunan semesta untuk {2, 4, 6} adalah...", o: ["Bilangan Genap", "Bilangan Ganjil", "Bilangan Prima", "Bilangan Negatif"], a: "Bilangan Genap" },
+                    { q: "A - B berarti...", o: ["Anggota A yang bukan anggota B", "Anggota B yang bukan A", "Irisan A dan B", "Gabungan A dan B"], a: "Anggota A yang bukan anggota B" },
+                    { q: "Jika n(A)=5, n(B)=4, n(A∩B)=2, maka n(A∪B) = ...", o: ["7", "9", "11", "5"], a: "7" }
+                ]},
+                { level: 3, topic: "Bentuk Aljabar Dasar", qs: [
+                    { q: "Koefisien x² pada 3x² - 5x + 7 adalah...", o: ["3", "-5", "7", "2"], a: "3" },
+                    { q: "Bentuk sederhana dari 4a - 3b + 2a + 5b adalah...", o: ["6a + 2b", "6a - 2b", "2a + 8b", "6a + 8b"], a: "6a + 2b" },
+                    { q: "Hasil kali (x + 3)(x - 2) adalah...", o: ["x² + x - 6", "x² - x - 6", "x² + 5x - 6", "x² - 6"], a: "x² + x - 6" },
+                    { q: "Hasil pembagian (6x²y) : (2xy) adalah...", o: ["3x", "3y", "3xy", "4x"], a: "3x" },
+                    { q: "Jika p = -2 dan q = 3, nilai p² - 2q adalah...", o: ["-2", "10", "4", "-10"], a: "-2" },
+                    { q: "Bentuk sederhana dari 2(3x - 4) - 3(x + 1) adalah...", o: ["3x - 11", "3x - 7", "3x - 5", "9x - 11"], a: "3x - 11" },
+                    { q: "KPK dari 3a²b dan 4ab² adalah...", o: ["12a²b²", "ab", "12ab", "7a²b²"], a: "12a²b²" },
+                    { q: "Faktor dari 2x + 6y adalah...", o: ["2(x + 3y)", "2(x + 6y)", "6(x + y)", "3(2x + y)"], a: "2(x + 3y)" },
+                    { q: "Substitusi x=4 ke persamaan 5x - 8 menghasilkan...", o: ["12", "28", "20", "15"], a: "12" },
+                    { q: "Kuadrat dari (a + b)² adalah...", o: ["a² + 2ab + b²", "a² + b²", "a² - 2ab + b²", "2a + 2b"], a: "a² + 2ab + b²" }
+                ]},
+                { level: 4, topic: "PLSV & PtLSV", qs: [
+                    { q: "Penyelesaian dari 3x - 5 = 10 adalah...", o: ["x = 5", "x = -5", "x = 15", "x = 3"], a: "x = 5" },
+                    { q: "Jika 2(x + 4) = 14, maka nilai x adalah...", o: ["3", "4", "5", "6"], a: "3" },
+                    { q: "Nilai x dari persamaan 5x - 3 = 2x + 9 adalah...", o: ["4", "3", "5", "6"], a: "4" },
+                    { q: "Himpunan penyelesaian dari 2x + 4 > 10 adalah...", o: ["x > 3", "x < 3", "x > -3", "x = 3"], a: "x > 3" },
+                    { q: "Penyelesaian dari -3x < 12 adalah...", o: ["x > -4", "x < -4", "x < 4", "x > 4"], a: "x > -4" },
+                    { q: "Keliling persegi panjang 40 cm. Panjang (x+5), lebar (x-1). Nilai x?", o: ["8", "10", "6", "12"], a: "8" },
+                    { q: "3a - 4 ≤ a + 8. Nilai a maksimal (bulat) adalah...", o: ["6", "5", "7", "8"], a: "6" },
+                    { q: "Jumlah 3 bilangan ganjil berurutan adalah 45. Bilangan terkecil?", o: ["13", "11", "15", "17"], a: "13" },
+                    { q: "Sebuah bus memuat maksimal 40 orang. PtLSV yang tepat:", o: ["x ≤ 40", "x < 40", "x > 40", "x ≥ 40"], a: "x ≤ 40" },
+                    { q: "Nilai m dari (m/2) + 3 = 7 adalah...", o: ["8", "4", "10", "6"], a: "8" }
+                ]},
+                { level: 5, topic: "Perbandingan (Rasio)", qs: [
+                    { q: "Bentuk sederhana perbandingan 45 cm : 1,5 m adalah...", o: ["3 : 10", "3 : 1", "1 : 3", "30 : 1"], a: "3 : 10" },
+                    { q: "Jarak peta 5 cm, skala 1:200.000. Jarak sebenarnya?", o: ["10 km", "100 km", "1 km", "50 km"], a: "10 km" },
+                    { q: "Perbandingan uang A dan B = 2 : 3. Jumlah Rp50.000. Uang A?", o: ["Rp 20.000", "Rp 30.000", "Rp 15.000", "Rp 25.000"], a: "Rp 20.000" },
+                    { q: "3 liter bensin untuk 36 km. Jarak untuk 5 liter bensin?", o: ["60 km", "50 km", "72 km", "48 km"], a: "60 km" },
+                    { q: "Pekerjaan selesai 20 hari oleh 6 orang. Jika dikerjakan 4 orang?", o: ["30 hari", "15 hari", "24 hari", "40 hari"], a: "30 hari" },
+                    { q: "Tinggi tiang 4m, bayangan 6m. Tinggi pohon jika bayangan 9m?", o: ["6 m", "5 m", "8 m", "12 m"], a: "6 m" },
+                    { q: "Skala peta 1:1.000.000. Jarak 2,5 km di peta adalah...", o: ["0,25 cm", "2,5 cm", "25 cm", "0,025 cm"], a: "0,25 cm" },
+                    { q: "Rasio usia Ayah (48th) dan Anak (16th) adalah...", o: ["3 : 1", "4 : 1", "1 : 3", "2 : 1"], a: "3 : 1" },
+                    { q: "Kecepatan 60 km/jam butuh 2 jam. Jika 80 km/jam?", o: ["1,5 jam", "2,5 jam", "1 jam", "3 jam"], a: "1,5 jam" },
+                    { q: "1 lusin pensil Rp36.000. Harga 5 batang pensil?", o: ["Rp 15.000", "Rp 12.000", "Rp 10.000", "Rp 18.000"], a: "Rp 15.000" }
+                ]},
+                { level: 6, topic: "Aritmetika Sosial", qs: [
+                    { q: "Harga beli Rp50.000, untung 15%. Harga jualnya?", o: ["Rp 57.500", "Rp 65.000", "Rp 55.000", "Rp 60.000"], a: "Rp 57.500" },
+                    { q: "Beli Rp80.000, jual Rp72.000. Persentase ruginya?", o: ["10%", "8%", "12%", "5%"], a: "10%" },
+                    { q: "Bruto 100 kg, Tara 5%. Netto-nya adalah...", o: ["95 kg", "105 kg", "50 kg", "90 kg"], a: "95 kg" },
+                    { q: "Bunga tabungan 12% per tahun. Tabung Rp1.000.000. Bunga 8 bulan?", o: ["Rp 80.000", "Rp 120.000", "Rp 60.000", "Rp 96.000"], a: "Rp 80.000" },
+                    { q: "Diskon 20% untuk baju Rp150.000. Harga yang dibayar?", o: ["Rp 120.000", "Rp 130.000", "Rp 100.000", "Rp 115.000"], a: "Rp 120.000" },
+                    { q: "Rumus mencari Tara adalah...", o: ["Bruto - Netto", "Bruto + Netto", "Netto - Bruto", "Bruto x Netto"], a: "Bruto - Netto" },
+                    { q: "Koperasi memberi pinjaman Rp2 juta, bunga 10% setahun. Cicilan per bulan?", o: ["Rp 183.333", "Rp 200.000", "Rp 150.000", "Rp 210.000"], a: "Rp 183.333" },
+                    { q: "Harga setelah diskon 10% adalah Rp90.000. Harga awal?", o: ["Rp 100.000", "Rp 110.000", "Rp 99.000", "Rp 120.000"], a: "Rp 100.000" },
+                    { q: "Rumus Persentase Untung adalah...", o: ["(Untung/Beli)x100%", "(Untung/Jual)x100%", "(Beli/Untung)x100%", "(Jual/Beli)x100%"], a: "(Untung/Beli)x100%" },
+                    { q: "Pedagang telur beli 10kg=Rp200.000. Busuk 1kg. Dijual Rp25.000/kg. Hasil?", o: ["Untung Rp 25.000", "Rugi Rp 25.000", "Untung Rp 50.000", "Impas"], a: "Untung Rp 25.000" }
+                ]},
+                { level: 7, topic: "Garis & Sudut", qs: [
+                    { q: "Sudut yang besarnya antara 90° dan 180° disebut sudut...", o: ["Tumpul", "Lancip", "Refleks", "Lurus"], a: "Tumpul" },
+                    { q: "Penyiku (komplemen) dari sudut 35° adalah...", o: ["55°", "145°", "45°", "65°"], a: "55°" },
+                    { q: "Pelurus (suplemen) dari sudut 110° adalah...", o: ["70°", "90°", "80°", "250°"], a: "70°" },
+                    { q: "Dua garis yang dipotong garis lain membentuk sudut sehadap yang...", o: ["Sama besar", "Berjumlah 180°", "Berjumlah 90°", "Berbeda"], a: "Sama besar" },
+                    { q: "Sudut dalam sepihak berjumlah...", o: ["180°", "90°", "360°", "Sama besar"], a: "180°" },
+                    { q: "Sudut bertolak belakang besarnya...", o: ["Selalu sama", "Berjumlah 180°", "Berjumlah 90°", "Selalu berbeda"], a: "Selalu sama" },
+                    { q: "Besar sudut satu putaran penuh adalah...", o: ["360°", "180°", "90°", "270°"], a: "360°" },
+                    { q: "Sudut A = (2x)°, Sudut B = (3x)°. Jika saling berpelurus, nilai x?", o: ["36", "18", "45", "90"], a: "36" },
+                    { q: "Pada jam 15:00, sudut terkecil jarum jam adalah...", o: ["90°", "180°", "150°", "120°"], a: "90°" },
+                    { q: "Garis yang membagi sudut menjadi dua sama besar disebut...", o: ["Garis bagi", "Garis berat", "Garis sumbu", "Garis tinggi"], a: "Garis bagi" }
+                ]},
+                { level: 8, topic: "Segitiga & Segiempat", qs: [
+                    { q: "Jumlah ketiga sudut dalam segitiga adalah...", o: ["180°", "360°", "90°", "270°"], a: "180°" },
+                    { q: "Luas jajar genjang alas 8 cm, tinggi 5 cm adalah...", o: ["40 cm²", "20 cm²", "13 cm²", "80 cm²"], a: "40 cm²" },
+                    { q: "Rumus luas layang-layang adalah...", o: ["1/2 x d1 x d2", "a x t", "1/2 x a x t", "(a+b)/2 x t"], a: "1/2 x d1 x d2" },
+                    { q: "Segitiga dengan sisi 5, 5, dan 8 disebut segitiga...", o: ["Sama kaki", "Sama sisi", "Siku-siku", "Sembarang"], a: "Sama kaki" },
+                    { q: "Keliling belah ketupat dengan sisi 12 cm adalah...", o: ["48 cm", "24 cm", "144 cm", "36 cm"], a: "48 cm" },
+                    { q: "Luas trapesium siku-siku: alas 10, atas 6, tinggi 4. Luasnya?", o: ["32 cm²", "64 cm²", "24 cm²", "40 cm²"], a: "32 cm²" },
+                    { q: "Syarat terbentuknya segitiga, jumlah 2 sisi harus...", o: ["Lebih besar dari sisi ke-3", "Sama dengan sisi ke-3", "Lebih kecil", "Sembarang"], a: "Lebih besar dari sisi ke-3" },
+                    { q: "Segiempat yang semua sisinya sama panjang, sudutnya 90°...", o: ["Persegi", "Belah ketupat", "Persegi panjang", "Trapesium"], a: "Persegi" },
+                    { q: "Sudut alas segitiga sama kaki adalah 50°. Sudut puncaknya?", o: ["80°", "130°", "50°", "100°"], a: "80°" },
+                    { q: "Luas segitiga alas 12 cm, luasnya 60 cm². Tingginya?", o: ["10 cm", "5 cm", "12 cm", "8 cm"], a: "10 cm" }
+                ]},
+                { level: 9, topic: "Penyajian Data", qs: [
+                    { q: "Diagram yang menggunakan gambar untuk mewakili data disebut...", o: ["Piktogram", "Diagram Batang", "Diagram Garis", "Diagram Lingkaran"], a: "Piktogram" },
+                    { q: "Sudut pusat data 25% pada diagram lingkaran adalah...", o: ["90°", "25°", "180°", "45°"], a: "90°" },
+                    { q: "Diagram yang paling tepat untuk tren suhu dari waktu ke waktu...", o: ["Diagram Garis", "Diagram Batang", "Piktogram", "Tabel"], a: "Diagram Garis" },
+                    { q: "Satu lingkaran penuh mewakili...", o: ["100% atau 360°", "50% atau 180°", "100% atau 100°", "10% atau 36°"], a: "100% atau 360°" },
+                    { q: "Diketahui sudut pusat IPA 120°. Jika total 300 siswa, suka IPA?", o: ["100 siswa", "120 siswa", "150 siswa", "80 siswa"], a: "100 siswa" },
+                    { q: "Tabel distribusi frekuensi digunakan untuk...", o: ["Mengelompokkan data", "Menghitung luas", "Menggambar garis", "Mencari persentase"], a: "Mengelompokkan data" },
+                    { q: "Pada diagram batang, tinggi batang menunjukkan...", o: ["Frekuensi/Jumlah", "Kategori", "Waktu", "Persentase"], a: "Frekuensi/Jumlah" },
+                    { q: "Kelemahan diagram lingkaran adalah...", o: ["Sulit melihat jumlah pasti tanpa perhitungan", "Ukurannya besar", "Warnanya terlalu banyak", "Hanya untuk suhu"], a: "Sulit melihat jumlah pasti tanpa perhitungan" },
+                    { q: "Untuk membandingkan 2 data berbeda di 1 kategori pakai...", o: ["Diagram Batang Ganda", "Diagram Garis", "Piktogram", "Lingkaran"], a: "Diagram Batang Ganda" },
+                    { q: "Data kualitatif contohnya adalah...", o: ["Warna favorit", "Tinggi badan", "Berat badan", "Nilai ujian"], a: "Warna favorit" }
+                ]},
+                { level: 10, topic: "Ujian Akhir Kelas 7 (HOTS)", qs: [
+                    { q: "Budi beli 3 apel, 2 jeruk = Rp15rb. 1 apel=Rp3rb. Harga 1 jeruk?", o: ["Rp 3.000", "Rp 2.500", "Rp 4.000", "Rp 2.000"], a: "Rp 3.000" },
+                    { q: "Skor benar=4, salah=-2, kosong=0. Jawab 40, benar 30, kosong 2. Skor?", o: ["104", "120", "116", "110"], a: "104" },
+                    { q: "Luas sawah 1/3 ditanam padi, 1/4 jagung, sisa 10ha kedelai. Total sawah?", o: ["24 ha", "12 ha", "20 ha", "30 ha"], a: "24 ha" },
+                    { q: "KPK dua bilangan adalah 60, FPB-nya 5. Jika bil pertama 15, bil kedua?", o: ["20", "25", "30", "12"], a: "20" },
+                    { q: "Harga awal sepatu Rp400.000, diskon 50%+20%. Harga bayar?", o: ["Rp 160.000", "Rp 120.000", "Rp 200.000", "Rp 180.000"], a: "Rp 160.000" },
+                    { q: "Perbandingan A:B=3:4, B:C=2:5. Jika uang A Rp30.000, uang C?", o: ["Rp 100.000", "Rp 80.000", "Rp 120.000", "Rp 60.000"], a: "Rp 100.000" },
+                    { q: "Dari 40 orang, 25 suka teh, 20 kopi, 7 tdk keduanya. Yg suka teh saja?", o: ["13 orang", "12 orang", "15 orang", "10 orang"], a: "13 orang" },
+                    { q: "Besar pelurus sebuah sudut adalah 4 kali sudut tsb. Sudut itu adalah...", o: ["36°", "45°", "72°", "18°"], a: "36°" },
+                    { q: "Pembangunan jembatan target 40 hari/15 orang. Jalan 10 hari, henti 5 hari. Tambah orang?", o: ["3 orang", "18 orang", "5 orang", "2 orang"], a: "3 orang" },
+                    { q: "Sebuah persegi panjang dipotong pojoknya (persegi 2cm). Perubahan keliling?", o: ["Tetap", "Berkurang", "Bertambah", "Tergantung panjang awal"], a: "Tetap" }
+                ]},
+            ],
+            8: [
+                { level: 1, topic: "Pola Bilangan", qs: [
+                    { q: "Suku ke-10 dari barisan 2, 4, 6, 8, ... adalah...", o: ["20", "22", "18", "16"], a: "20" },
+                    { q: "Pola persegi pada suku ke-6 adalah...", o: ["36", "25", "49", "30"], a: "36" },
+                    { q: "Rumus suku ke-n barisan bilangan ganjil adalah...", o: ["2n - 1", "2n + 1", "n²", "2n"], a: "2n - 1" },
+                    { q: "Suku ke-8 dari barisan Fibonacci 1, 1, 2, 3, 5... adalah...", o: ["21", "13", "34", "15"], a: "21" },
+                    { q: "Dua suku berikutnya dari 3, 7, 11, 15... adalah...", o: ["19, 23", "18, 22", "19, 24", "20, 25"], a: "19, 23" },
+                    { q: "Pola bilangan segitiga (1, 3, 6, 10...). Suku ke-5 adalah...", o: ["15", "14", "16", "21"], a: "15" },
+                    { q: "Rumus barisan aritmetika adalah Un = ...", o: ["a + (n-1)b", "ar^(n-1)", "a + nb", "a - (n-1)b"], a: "a + (n-1)b" },
+                    { q: "Barisan 1, 4, 9, 16, 25... Suku ke-10 adalah...", o: ["100", "81", "121", "144"], a: "100" },
+                    { q: "Beda (b) dari barisan 15, 12, 9, 6... adalah...", o: ["-3", "3", "-4", "4"], a: "-3" },
+                    { q: "Tiga suku berikutnya dari 2, -4, 8, -16... (Geometri)", o: ["32, -64, 128", "-32, 64, -128", "24, -32, 40", "30, -60, 120"], a: "32, -64, 128" }
+                ]},
+                { level: 2, topic: "Koordinat Kartesius", qs: [
+                    { q: "Titik (3, -5) berada di kuadran...", o: ["IV", "III", "II", "I"], a: "IV" },
+                    { q: "Jarak titik (-4, 3) terhadap sumbu X adalah...", o: ["3 satuan", "4 satuan", "-3 satuan", "-4 satuan"], a: "3 satuan" },
+                    { q: "Titik P memotong sumbu Y di angka 5. Koordinat P adalah...", o: ["(0, 5)", "(5, 0)", "(1, 5)", "(5, 5)"], a: "(0, 5)" },
+                    { q: "Jarak antara titik (2,1) dan (5,5) adalah...", o: ["5", "4", "3", "7"], a: "5" },
+                    { q: "Garis y = 4 sejajar dengan sumbu...", o: ["X", "Y", "Z", "Tidak sejajar keduanya"], a: "X" },
+                    { q: "Posisi (-3, -3) berada di area yang nilai X dan Y-nya...", o: ["Keduanya negatif", "Keduanya positif", "X negatif Y positif", "X positif Y negatif"], a: "Keduanya negatif" },
+                    { q: "Titik yang memiliki jarak 2 satuan ke sumbu Y dan 5 ke sumbu X (Kuadran 1)", o: ["(2, 5)", "(5, 2)", "(2, -5)", "(-2, 5)"], a: "(2, 5)" },
+                    { q: "Garis yang menghubungkan (-2,0) dan (2,0) berhimpit pada sumbu...", o: ["X", "Y", "Kuadran I", "Kuadran II"], a: "X" },
+                    { q: "Koordinat titik asal (origin) adalah...", o: ["(0, 0)", "(1, 1)", "(-1, -1)", "(0, 1)"], a: "(0, 0)" },
+                    { q: "Bangun dari titik A(0,0), B(4,0), C(4,3), D(0,3) adalah...", o: ["Persegi panjang", "Persegi", "Jajar genjang", "Trapesium"], a: "Persegi panjang" }
+                ]},
+                { level: 3, topic: "Relasi & Fungsi", qs: [
+                    { q: "Syarat sebuah relasi disebut fungsi (pemetaan) adalah...", o: ["Setiap anggota domain punya tepat 1 pasangan", "Kodomain harus habis terpasang", "Domain boleh punya >1 pasangan", "Domain boleh kosong"], a: "Setiap anggota domain punya tepat 1 pasangan" },
+                    { q: "Diketahui f(x) = 3x - 2. Nilai f(4) adalah...", o: ["10", "12", "14", "8"], a: "10" },
+                    { q: "Himpunan daerah asal disebut...", o: ["Domain", "Kodomain", "Range", "Relasi"], a: "Domain" },
+                    { q: "Jika f(x) = ax + b, f(1)=3, f(2)=5. Rumus f(x)?", o: ["2x + 1", "x + 2", "3x", "2x - 1"], a: "2x + 1" },
+                    { q: "Himpunan hasil pemetaan disebut...", o: ["Range", "Domain", "Kodomain", "Pemetaan"], a: "Range" },
+                    { q: "Banyak pemetaan dari himp A(2 anggota) ke B(3 anggota) adalah...", o: ["3² = 9", "2³ = 8", "3x2 = 6", "2+3 = 5"], a: "3² = 9" },
+                    { q: "Jika f(x) = x² - 1, bayangan dari -3 adalah...", o: ["8", "-10", "10", "-8"], a: "8" },
+                    { q: "Manakah yang merupakan fungsi? {(1,a), (2,b), (3,c)} atau {(1,a), (1,b)}", o: ["{(1,a), (2,b), (3,c)}", "{(1,a), (1,b)}", "Keduanya", "Bukan keduanya"], a: "{(1,a), (2,b), (3,c)}" },
+                    { q: "Korespodensi satu-satu mensyaratkan...", o: ["n(A) = n(B)", "n(A) > n(B)", "n(A) < n(B)", "Tidak ada syarat"], a: "n(A) = n(B)" },
+                    { q: "Banyak korespodensi satu-satu himpunan A(3 anggota) ke B adalah...", o: ["3! = 6", "3² = 9", "3³ = 27", "3"], a: "3! = 6" }
+                ]},
+                { level: 4, topic: "Persamaan Garis Lurus", qs: [
+                    { q: "Gradien (m) dari garis y = -2x + 5 adalah...", o: ["-2", "5", "2", "3"], a: "-2" },
+                    { q: "Rumus persamaan garis lurus bentuk umum adalah...", o: ["y = mx + c", "y = cx + m", "y = x² + c", "y = c/m"], a: "y = mx + c" },
+                    { q: "Gradien garis yang melalui titik (0,0) dan (4,8) adalah...", o: ["2", "4", "1/2", "8"], a: "2" },
+                    { q: "Dua garis tegak lurus memiliki hubungan gradien...", o: ["m1 x m2 = -1", "m1 = m2", "m1 + m2 = 0", "m1 x m2 = 1"], a: "m1 x m2 = -1" },
+                    { q: "Persamaan garis melalui (0,0) bergradien 3 adalah...", o: ["y = 3x", "y = x + 3", "x = 3y", "y = -3x"], a: "y = 3x" },
+                    { q: "Persamaan garis dengan gradien 2 melalui titik (1, 4)", o: ["y = 2x + 2", "y = 2x + 4", "y = 4x + 2", "y = 2x - 2"], a: "y = 2x + 2" },
+                    { q: "Gradien garis dari persamaan 4x - 2y = 10 adalah...", o: ["2", "-2", "4", "5"], a: "2" },
+                    { q: "Garis sejajar dengan y = 5x - 3 memiliki gradien...", o: ["5", "-5", "1/5", "-1/5"], a: "5" },
+                    { q: "Titik potong sumbu Y untuk persamaan y = 3x - 7 adalah...", o: ["(0, -7)", "(-7, 0)", "(0, 7)", "(3, -7)"], a: "(0, -7)" },
+                    { q: "Persamaan garis melalui (1,2) dan (3,6) adalah...", o: ["y = 2x", "y = 3x - 1", "y = x + 1", "y = 2x + 2"], a: "y = 2x" }
+                ]},
+                { level: 5, topic: "Sistem Persamaan Linear Dua Variabel", qs: [
+                    { q: "Penyelesaian dari x + y = 6 dan x - y = 2 adalah...", o: ["(4, 2)", "(2, 4)", "(5, 1)", "(3, 3)"], a: "(4, 2)" },
+                    { q: "2x + y = 7 dan x + y = 4. Nilai x adalah...", o: ["3", "1", "4", "2"], a: "3" },
+                    { q: "Metode menghilangkan salah satu variabel disebut...", o: ["Eliminasi", "Substitusi", "Campuran", "Grafik"], a: "Eliminasi" },
+                    { q: "Harga 1 pulpen & 1 buku Rp5.000, 2 pulpen & 1 buku Rp7.000. Harga 1 pulpen?", o: ["Rp 2.000", "Rp 3.000", "Rp 1.000", "Rp 4.000"], a: "Rp 2.000" },
+                    { q: "Metode mengganti variabel dengan nilai variabel lain disebut...", o: ["Substitusi", "Eliminasi", "Distribusi", "Grafik"], a: "Substitusi" },
+                    { q: "Umur Kakak + Adik = 30. Kakak - Adik = 4. Umur Kakak?", o: ["17", "13", "15", "16"], a: "17" },
+                    { q: "Solusi 3x - y = 5 dan x + y = 7 adalah...", o: ["x=3, y=4", "x=4, y=3", "x=2, y=5", "x=5, y=2"], a: "x=3, y=4" },
+                    { q: "Kandang berisi 20 ayam & kambing. Jumlah kaki 54. Banyak ayam?", o: ["13", "7", "10", "15"], a: "13" },
+                    { q: "Jika ax + by = c digambar, bentuknya berupa...", o: ["Garis Lurus", "Kurva", "Lingkaran", "Titik"], a: "Garis Lurus" },
+                    { q: "SPLDV tidak memiliki penyelesaian jika kedua garis...", o: ["Sejajar", "Berpotongan", "Tegak Lurus", "Berhimpit"], a: "Sejajar" }
+                ]},
+                { level: 6, topic: "Teorema Pythagoras", qs: [
+                    { q: "Segitiga siku-siku alas 6, tinggi 8. Sisi miring?", o: ["10", "12", "14", "100"], a: "10" },
+                    { q: "Berdasarkan c² = a² + b², jika c sisi terpanjang, segitiga ini...", o: ["Siku-siku", "Lancip", "Tumpul", "Sembarang"], a: "Siku-siku" },
+                    { q: "Tripel Pythagoras yang tepat adalah...", o: ["5, 12, 13", "4, 5, 6", "7, 10, 15", "8, 9, 10"], a: "5, 12, 13" },
+                    { q: "Diagonal persegi dengan sisi 5 cm adalah...", o: ["5√2 cm", "10 cm", "25 cm", "5√3 cm"], a: "5√2 cm" },
+                    { q: "Tinggi segitiga sama sisi berukuran sisi 4 cm adalah...", o: ["2√3 cm", "2 cm", "4√2 cm", "8 cm"], a: "2√3 cm" },
+                    { q: "Jika a² + b² < c², segitiga tersebut adalah...", o: ["Tumpul", "Siku-siku", "Lancip", "Sama sisi"], a: "Tumpul" },
+                    { q: "Jarak kapal layar 15 km ke utara, lalu 8 km ke timur dari pelabuhan?", o: ["17 km", "23 km", "12 km", "7 km"], a: "17 km" },
+                    { q: "Sisi belah ketupat yang d1=16 dan d2=12 adalah...", o: ["10 cm", "20 cm", "14 cm", "8 cm"], a: "10 cm" },
+                    { q: "Sisi miring 25, alas 7. Tinggi segitiga?", o: ["24", "26", "20", "22"], a: "24" },
+                    { q: "Tangga 5m bersandar di tembok. Jarak kaki tangga ke tembok 3m. Tinggi tembok?", o: ["4m", "2m", "6m", "3m"], a: "4m" }
+                ]},
+                { level: 7, topic: "Lingkaran", qs: [
+                    { q: "Rumus keliling lingkaran adalah...", o: ["2πr atau πd", "πr²", "1/2πr", "π²r"], a: "2πr atau πd" },
+                    { q: "Daerah dalam lingkaran yang dibatasi 2 jari-jari dan busur disebut...", o: ["Juring", "Tembereng", "Tali Busur", "Apotema"], a: "Juring" },
+                    { q: "Garis dari pusat tegak lurus ke tali busur disebut...", o: ["Apotema", "Jari-jari", "Diameter", "Garis singgung"], a: "Apotema" },
+                    { q: "Besar sudut keliling jika sudut pusatnya 100° (menghadap busur sama)?", o: ["50°", "100°", "200°", "25°"], a: "50°" },
+                    { q: "Luas lingkaran dengan r = 7 cm (π=22/7) adalah...", o: ["154 cm²", "44 cm²", "22 cm²", "314 cm²"], a: "154 cm²" },
+                    { q: "Sudut keliling yang menghadap diameter besarnya...", o: ["90°", "180°", "45°", "360°"], a: "90°" },
+                    { q: "Panjang busur lingkaran (sudut pusat 90°, r=7) adalah...", o: ["11 cm", "22 cm", "44 cm", "154 cm"], a: "11 cm" },
+                    { q: "Garis yang menyinggung lingkaran di satu titik disebut...", o: ["Garis Singgung", "Tali Busur", "Diameter", "Sekan"], a: "Garis Singgung" },
+                    { q: "Jarak titik pusat dua lingkaran d=13, r1=7, r2=2. Garis singgung luar (l)?", o: ["12 cm", "10 cm", "15 cm", "14 cm"], a: "12 cm" },
+                    { q: "Daerah yang dibatasi oleh tali busur dan busur disebut...", o: ["Tembereng", "Juring", "Apotema", "Cincin"], a: "Tembereng" }
+                ]},
+                { level: 8, topic: "Bangun Ruang Sisi Datar", qs: [
+                    { q: "Banyak rusuk pada kubus adalah...", o: ["12", "8", "6", "10"], a: "12" },
+                    { q: "Volume balok p=5, l=4, t=3 adalah...", o: ["60", "20", "12", "94"], a: "60" },
+                    { q: "Luas permukaan kubus sisi 4 cm adalah...", o: ["96 cm²", "64 cm²", "16 cm²", "32 cm²"], a: "96 cm²" },
+                    { q: "Rumus volume limas adalah...", o: ["1/3 x Luas Alas x tinggi", "Luas Alas x tinggi", "1/2 x Luas Alas x tinggi", "4/3 x Luas Alas x tinggi"], a: "1/3 x Luas Alas x tinggi" },
+                    { q: "Banyak titik sudut pada balok adalah...", o: ["8", "12", "6", "10"], a: "8" },
+                    { q: "Prisma segitiga memiliki jumlah sisi sebanyak...", o: ["5", "6", "4", "3"], a: "5" },
+                    { q: "Panjang diagonal ruang kubus sisi (a) adalah...", o: ["a√3", "a√2", "2a", "a²"], a: "a√3" },
+                    { q: "Kawat panjang 1,5m dibuat kerangka balok 10x8x5. Sisa kawat?", o: ["58 cm", "60 cm", "70 cm", "92 cm"], a: "58 cm" },
+                    { q: "Limas segi empat alas persegi sisi 10, tinggi 12. Volume?", o: ["400", "1200", "600", "200"], a: "400" },
+                    { q: "Alas prisma segitiga siku-siku (3,4,5), t=10. Luas permukaan total?", o: ["132", "120", "60", "144"], a: "132" }
+                ]},
+                { level: 9, topic: "Statistika & Peluang", qs: [
+                    { q: "Modus dari data: 2, 4, 4, 5, 5, 5, 6 adalah...", o: ["5", "4", "2", "6"], a: "5" },
+                    { q: "Median dari data terurut: 3, 5, 6, 8, 10 adalah...", o: ["6", "5", "7", "8"], a: "6" },
+                    { q: "Rata-rata (mean) dari 10, 8, 6, 4 adalah...", o: ["7", "6,5", "8", "6"], a: "7" },
+                    { q: "Peluang muncul angka pada pelemparan 1 koin adalah...", o: ["1/2", "1", "0", "1/4"], a: "1/2" },
+                    { q: "Ruang sampel pelemparan 1 dadu adalah...", o: ["{1,2,3,4,5,6}", "{1,2}", "{A, G}", "{1,3,5}"], a: "{1,2,3,4,5,6}" },
+                    { q: "Peluang muncul mata dadu prima ganjil (dadu 6 sisi) adalah...", o: ["2/6 (1/3)", "3/6", "1/6", "4/6"], a: "2/6 (1/3)" },
+                    { q: "Sebuah kantong isi 3 kelereng merah, 2 biru. Peluang terambil biru?", o: ["2/5", "3/5", "1/2", "2/3"], a: "2/5" },
+                    { q: "Frekuensi harapan muncul Angka pelemparan koin 100x adalah...", o: ["50", "25", "100", "75"], a: "50" },
+                    { q: "Peluang kejadian pasti terjadi (misal: besok matahari terbit) adalah...", o: ["1", "0", "0,5", "Tak terhingga"], a: "1" },
+                    { q: "Banyak titik sampel 2 koin dilempar bersamaan adalah...", o: ["4", "2", "6", "8"], a: "4" }
+                ]},
+                { level: 10, topic: "Ujian Akhir Kelas 8 (HOTS)", qs: [
+                    { q: "Barisan: a, 8, b, 14, 17. Nilai a dan b? (Aritmetika)", o: ["5 dan 11", "6 dan 10", "4 dan 12", "5 dan 12"], a: "5 dan 11" },
+                    { q: "Luas dua lingkaran L1:L2 = 9:16. Perbandingan jari-jarinya?", o: ["3:4", "9:16", "1:2", "81:256"], a: "3:4" },
+                    { q: "Gradien garis yg tegak lurus dengan 2x + 4y = 8 adalah...", o: ["2", "-1/2", "1/2", "-2"], a: "2" },
+                    { q: "Kotak tanpa tutup dari karton 10x10. Potong sudut x, ditekuk. Luas alas?", o: ["(10-2x)²", "(10-x)²", "100-x²", "100-4x²"], a: "(10-2x)²" },
+                    { q: "Balok p=x+2, l=x, t=3. Volume=105. Nilai x?", o: ["5", "3", "7", "4"], a: "5" },
+                    { q: "Garis x=3 menyinggung lingkaran berpusat (0,0). Luas lingkaran?", o: ["9π", "6π", "3π", "18π"], a: "9π" },
+                    { q: "Dari 3 dadu, titik sampel muncul jumlah mata dadu 3 adalah...", o: ["1", "3", "6", "2"], a: "1" },
+                    { q: "Tali busur terpanjang pada lingkaran memiliki nama khusus, yaitu...", o: ["Diameter", "Jari-jari", "Apotema", "Tembereng"], a: "Diameter" },
+                    { q: "Rata-rata 4 siswa=7. Masuk 1 siswa, rata-rata jadi 7,2. Nilai siswa tsb?", o: ["8", "7,5", "8,2", "9"], a: "8" },
+                    { q: "Garis singgung persekutuan dalam 2 lingkaran: d=15, r1=6, r2=3. Panjang l?", o: ["12", "9", "10", "14"], a: "12" }
+                ]}
+            ],
+            9: [
+                { level: 1, topic: "Perpangkatan", qs: [
+                    { q: "Hasil dari 3⁴ adalah...", o: ["81", "12", "27", "64"], a: "81" },
+                    { q: "Bentuk sederhana dari 2⁵ x 2³ adalah...", o: ["2⁸", "2¹⁵", "4⁸", "4¹⁵"], a: "2⁸" },
+                    { q: "Hasil pembagian 5⁶ : 5⁴ adalah...", o: ["25", "5", "125", "10"], a: "25" },
+                    { q: "Bentuk pangkat dari (a²)³ adalah...", o: ["a⁶", "a⁵", "a⁸", "a"], a: "a⁶" },
+                    { q: "Nilai dari 10⁻³ adalah...", o: ["0,001", "0,01", "0,0001", "-30"], a: "0,001" },
+                    { q: "Hasil dari (-2)³ adalah...", o: ["-8", "8", "-6", "6"], a: "-8" },
+                    { q: "Bentuk baku dari 23.000.000 adalah...", o: ["2,3 x 10⁷", "23 x 10⁶", "2,3 x 10⁸", "0,23 x 10⁸"], a: "2,3 x 10⁷" },
+                    { q: "Berapapun bilangannya (kecuali 0), jika dipangkatkan 0 hasilnya...", o: ["1", "0", "Bilangan itu sendiri", "Tak hingga"], a: "1" },
+                    { q: "Sederhanakan (2xy²)³", o: ["8x³y⁶", "2x³y⁶", "6x³y⁵", "8x³y⁵"], a: "8x³y⁶" },
+                    { q: "Massa elektron 9,1 x 10⁻³¹ kg. Penulisan ini disebut...", o: ["Bentuk Baku (Notasi Ilmiah)", "Bentuk Akar", "Pecahan Desimal", "Sistem Basis 10"], a: "Bentuk Baku (Notasi Ilmiah)" }
+                ]},
+                { level: 2, topic: "Bentuk Akar", qs: [
+                    { q: "Bentuk sederhana dari √48 adalah...", o: ["4√3", "16√3", "2√12", "3√4"], a: "4√3" },
+                    { q: "Hasil dari √8 x √2 adalah...", o: ["4", "16", "2√2", "8"], a: "4" },
+                    { q: "√75 - √27 = ...", o: ["2√3", "5√3", "3√3", "8√3"], a: "2√3" },
+                    { q: "Rasionalkan pecahan 6 / √3", o: ["2√3", "3√3", "6√3", "2"], a: "2√3" },
+                    { q: "Hasil dari (√5 + √2)(√5 - √2) adalah...", o: ["3", "7", "√3", "10"], a: "3" },
+                    { q: "Bentuk akar dari a^(2/3) adalah...", o: ["³√(a²)", "²√(a³)", "√(a/3)", "a³√a"], a: "³√(a²)" },
+                    { q: "√18 + √50 - √72 = ...", o: ["2√2", "4√2", "√2", "0"], a: "2√2" },
+                    { q: "Pecahan 2 / (√5 - 1) dirasionalkan menjadi...", o: ["(√5 + 1)/2", "(√5 - 1)/2", "√5 + 1", "2√5 + 2"], a: "(√5 + 1)/2" },
+                    { q: "Akar pangkat tiga dari 64 adalah...", o: ["4", "8", "6", "16"], a: "4" },
+                    { q: "Hasil dari √0,0144 adalah...", o: ["0,12", "0,012", "1,2", "0,0012"], a: "0,12" }
+                ]},
+                { level: 3, topic: "Persamaan Kuadrat", qs: [
+                    { q: "Akar-akar dari persamaan x² - 4x - 12 = 0 adalah...", o: ["6 dan -2", "-6 dan 2", "3 dan -4", "4 dan -3"], a: "6 dan -2" },
+                    { q: "Bentuk umum persamaan kuadrat adalah...", o: ["ax² + bx + c = 0", "mx + c = 0", "a/b x = c", "x² = y"], a: "ax² + bx + c = 0" },
+                    { q: "Nilai Diskriminan (D) untuk x² - 2x + 1 = 0 adalah...", o: ["0", "1", "-1", "4"], a: "0" },
+                    { q: "Jika D > 0, maka persamaan kuadrat memiliki...", o: ["2 akar Real berbeda", "2 akar Real kembar", "Tidak ada akar Real", "Akar Imajiner"], a: "2 akar Real berbeda" },
+                    { q: "Rumus jumlah akar (x1 + x2) adalah...", o: ["-b/a", "c/a", "b/a", "-c/a"], a: "-b/a" },
+                    { q: "Hasil kali akar-akar (x1 . x2) dari 2x² - 5x + 6 = 0 adalah...", o: ["3", "-5/2", "5/2", "6"], a: "3" },
+                    { q: "Faktor dari 4x² - 9 = 0 adalah...", o: ["(2x - 3)(2x + 3)", "(4x - 3)(x + 3)", "(2x - 9)(2x + 1)", "(x - 3)(4x + 3)"], a: "(2x - 3)(2x + 3)" },
+                    { q: "Rumus ABC (Kuadratik) adalah...", o: ["(-b ± √D) / 2a", "(b ± √D) / 2a", "(-b ± √D) / a", "(-a ± √D) / 2b"], a: "(-b ± √D) / 2a" },
+                    { q: "Persamaan kuadrat yg akar-akarnya 2 dan 3 adalah...", o: ["x² - 5x + 6 = 0", "x² + 5x + 6 = 0", "x² - 6x + 5 = 0", "x² + x - 6 = 0"], a: "x² - 5x + 6 = 0" },
+                    { q: "Penyelesaian dari 3x² - 27 = 0 adalah...", o: ["x = 3 atau x = -3", "x = 9 atau x = -9", "x = 3 saja", "x = 9 saja"], a: "x = 3 atau x = -3" }
+                ]},
+                { level: 4, topic: "Fungsi Kuadrat", qs: [
+                    { q: "Grafik fungsi kuadrat y = ax² + bx + c berupa...", o: ["Parabola", "Garis Lurus", "Lingkaran", "Hiperbola"], a: "Parabola" },
+                    { q: "Jika nilai a > 0, maka grafik fungsi kuadrat akan...", o: ["Terbuka ke atas", "Terbuka ke bawah", "Lurus", "Miring ke kanan"], a: "Terbuka ke atas" },
+                    { q: "Sumbu simetri fungsi y = x² - 6x + 5 adalah...", o: ["x = 3", "x = -3", "x = 6", "x = -6"], a: "x = 3" },
+                    { q: "Nilai optimum (Puncak Y) fungsi y = x² - 4x + 4 adalah...", o: ["0", "4", "-4", "2"], a: "0" },
+                    { q: "Titik potong grafik y = x² - x - 2 terhadap sumbu Y adalah...", o: ["(0, -2)", "(0, 2)", "(-2, 0)", "(2, 0)"], a: "(0, -2)" },
+                    { q: "Jika D < 0 dan a > 0, letak grafik parabola adalah...", o: ["Selalu di atas sumbu X (Definit Positif)", "Menyinggung sumbu X", "Memotong sumbu X", "Definit Negatif"], a: "Selalu di atas sumbu X (Definit Positif)" },
+                    { q: "Rumus sumbu simetri adalah...", o: ["x = -b / 2a", "x = b / 2a", "y = -D / 4a", "y = D / 4a"], a: "x = -b / 2a" },
+                    { q: "Tinggi peluru h(t) = 40t - 5t². Tinggi maksimum peluru?", o: ["80 m", "40 m", "100 m", "120 m"], a: "80 m" },
+                    { q: "Pembuat nol fungsi f(x) = x² - 9 adalah...", o: ["3 dan -3", "9 dan -9", "0 dan 9", "0 dan 3"], a: "3 dan -3" },
+                    { q: "Grafik terbuka ke bawah dan menyinggung sumbu X, syaratnya...", o: ["a < 0, D = 0", "a > 0, D = 0", "a < 0, D > 0", "a > 0, D < 0"], a: "a < 0, D = 0" }
+                ]},
+                { level: 5, topic: "Transformasi Geometri (Refleksi & Translasi)", qs: [
+                    { q: "Translasi T=(2, -3) pada titik (1,4). Hasilnya?", o: ["(3, 1)", "(1, 1)", "(3, 7)", "(-1, 7)"], a: "(3, 1)" },
+                    { q: "Pencerminan (Refleksi) titik (5,2) terhadap sumbu X menghasilkan...", o: ["(5, -2)", "(-5, 2)", "(-5, -2)", "(2, 5)"], a: "(5, -2)" },
+                    { q: "Refleksi titik (-3, 4) terhadap sumbu Y menghasilkan...", o: ["(3, 4)", "(-3, -4)", "(3, -4)", "(4, -3)"], a: "(3, 4)" },
+                    { q: "Refleksi titik (a,b) terhadap garis y = x bayangannya adalah...", o: ["(b, a)", "(-b, -a)", "(-a, -b)", "(a, -b)"], a: "(b, a)" },
+                    { q: "Titik A(2,1) ditranslasi T(3,2) lalu translasi T(-1,0). Akhirnya?", o: ["(4, 3)", "(5, 3)", "(4, 1)", "(6, 3)"], a: "(4, 3)" },
+                    { q: "Refleksi terhadap titik pusat (0,0) mengubah (x,y) menjadi...", o: ["(-x, -y)", "(x, -y)", "(-x, y)", "(y, x)"], a: "(-x, -y)" },
+                    { q: "Benda dan bayangannya pada translasi memiliki...", o: ["Ukuran & bentuk sama (Isometri)", "Bentuk sama, ukuran beda", "Bentuk beda", "Terbalik (mirror)"], a: "Ukuran & bentuk sama (Isometri)" },
+                    { q: "Titik B(4, -1) direfleksi ke y = -x, menjadi...", o: ["(1, -4)", "(-1, 4)", "(-4, 1)", "(4, 1)"], a: "(1, -4)" },
+                    { q: "Translasi T memindahkan (2,2) ke (5,0). Vektor T?", o: ["(3, -2)", "(3, 2)", "(-3, 2)", "(-3, -2)"], a: "(3, -2)" },
+                    { q: "Garis x=3 dicerminkan thd sumbu Y menjadi garis...", o: ["x = -3", "y = 3", "y = -3", "x = 3"], a: "x = -3" }
+                ]},
+                { level: 6, topic: "Transformasi Geometri (Rotasi & Dilatasi)", qs: [
+                    { q: "Rotasi pusat (0,0) sudut 90° berlawanan arah jarum jam. (x,y) jadi...", o: ["(-y, x)", "(y, -x)", "(-x, -y)", "(y, x)"], a: "(-y, x)" },
+                    { q: "Rotasi 180° berpusat (0,0) mengubah titik (3,4) menjadi...", o: ["(-3, -4)", "(3, -4)", "(-4, 3)", "(4, -3)"], a: "(-3, -4)" },
+                    { q: "Dilatasi pusat (0,0) faktor k=3 pada titik (2,-1) menjadi...", o: ["(6, -3)", "(5, 2)", "(2/3, -1/3)", "(6, 1)"], a: "(6, -3)" },
+                    { q: "Titik (8,4) adalah hasil dilatasi k=2. Titik asalnya?", o: ["(4, 2)", "(16, 8)", "(10, 6)", "(6, 2)"], a: "(4, 2)" },
+                    { q: "Luas bangun awal 10 cm². Jika didilatasi k=3, Luas barunya...", o: ["90 cm²", "30 cm²", "60 cm²", "13 cm²"], a: "90 cm²" },
+                    { q: "Rotasi -90° (searah jarum jam) mengubah (x,y) menjadi...", o: ["(y, -x)", "(-y, x)", "(-x, -y)", "(-y, -x)"], a: "(y, -x)" },
+                    { q: "Titik P(-2,5) dirotasi 90° (lawan jarum jam). Hasilnya?", o: ["(-5, -2)", "(5, -2)", "(5, 2)", "(-2, -5)"], a: "(-5, -2)" },
+                    { q: "Dilatasi faktor pecahan (contoh k=1/2) akan membuat bangun...", o: ["Mengecil", "Membesar", "Berputar", "Terbalik"], a: "Mengecil" },
+                    { q: "Pusat dilatasi yang tidak mengubah posisi objek disebut...", o: ["Titik invarian", "Faktor skala", "Pusat rotasi", "Origin"], a: "Titik invarian" },
+                    { q: "Segitiga ABC didilatasi k=-1 (pusat 0,0). Hasilnya sama dengan...", o: ["Rotasi 180°", "Translasi", "Refleksi sumbu X", "Rotasi 90°"], a: "Rotasi 180°" }
+                ]},
+                { level: 7, topic: "Kesebangunan & Kekongruenan", qs: [
+                    { q: "Syarat 2 bangun kongruen (sama dan sebangun) adalah...", o: ["Sudut bersesuaian sama, sisi bersesuaian sama panjang", "Hanya sudut yang sama", "Sisi sebanding", "Luas sama"], a: "Sudut bersesuaian sama, sisi bersesuaian sama panjang" },
+                    { q: "Syarat 2 bangun sebangun adalah sisi bersesuaian memiliki...", o: ["Perbandingan yang sama", "Panjang yang persis sama", "Selisih yang sama", "Luas yang sama"], a: "Perbandingan yang sama" },
+                    { q: "Foto 3x4 diperbesar jadi 6xX. Nilai X jika sebangun?", o: ["8", "7", "6", "9"], a: "8" },
+                    { q: "Dua buah persegi...", o: ["Selalu sebangun", "Selalu kongruen", "Belum tentu sebangun", "Pasti tidak sebangun"], a: "Selalu sebangun" },
+                    { q: "Tinggi orang 1,5m, bayangan 2m. Tinggi tiang jika bayangan 6m?", o: ["4,5 m", "5 m", "4 m", "3 m"], a: "4,5 m" },
+                    { q: "Sisi segitiga kongruen memenuhi syarat S-Sd-S. Kepanjangannya?", o: ["Sisi-Sudut-Sisi", "Sudut-Sisi-Sudut", "Sisi-Sisi-Sisi", "Semua Salah"], a: "Sisi-Sudut-Sisi" },
+                    { q: "Dua layang-layang...", o: ["Belum tentu sebangun", "Selalu sebangun", "Pasti kongruen", "Tidak memiliki sifat"], a: "Belum tentu sebangun" },
+                    { q: "Segitiga siku-siku dari garis tinggi hipotenusa membentuk...", o: ["3 segitiga sebangun", "2 segitiga kongruen", "1 segitiga", "Tidak ada"], a: "3 segitiga sebangun" },
+                    { q: "Simbol matematis untuk 'sebangun' adalah...", o: ["~", "≅", "=", "≠"], a: "~" },
+                    { q: "Perbandingan sisi segitiga A:B = 1:2. Luas A 10 cm². Luas B?", o: ["40 cm²", "20 cm²", "100 cm²", "30 cm²"], a: "40 cm²" }
+                ]},
+                { level: 8, topic: "BRSL: Tabung & Kerucut", qs: [
+                    { q: "Rumus Volume Tabung adalah...", o: ["πr²t", "2πrt", "1/3 πr²t", "4/3 πr³"], a: "πr²t" },
+                    { q: "Luas selimut tabung adalah...", o: ["2πrt", "πr²t", "πrs", "2πr²"], a: "2πrt" },
+                    { q: "Luas permukaan tabung tanpa tutup (r, t) adalah...", o: ["πr² + 2πrt", "2πr(r+t)", "πrt", "πr² + πrt"], a: "πr² + 2πrt" },
+                    { q: "Rumus Volume Kerucut adalah...", o: ["1/3 πr²t", "πr²t", "πrs", "4/3 πr³"], a: "1/3 πr²t" },
+                    { q: "Luas selimut kerucut (garis pelukis s) adalah...", o: ["πrs", "πr(r+s)", "2πrt", "1/3 πr²t"], a: "πrs" },
+                    { q: "Garis pelukis (s), tinggi (t), jari-jari (r) kerucut memenuhi...", o: ["s² = r² + t²", "s = r + t", "s² = r² - t²", "s = rt"], a: "s² = r² + t²" },
+                    { q: "Tabung & Kerucut punya r dan t sama. V Tabung = 300. V Kerucut?", o: ["100", "900", "150", "200"], a: "100" },
+                    { q: "Jari-jari tabung 7 cm, tinggi 10. Volume? (π=22/7)", o: ["1540 cm³", "154 cm³", "220 cm³", "3140 cm³"], a: "1540 cm³" },
+                    { q: "Kerucut r=3, t=4. Garis pelukis (s) = ...", o: ["5", "7", "25", "1"], a: "5" },
+                    { q: "Luas permukaan total kerucut r=5, s=13 (π=3,14)", o: ["282,6", "204,1", "314", "90"], a: "282,6" }
+                ]},
+                { level: 9, topic: "BRSL: Bola & Gabungan", qs: [
+                    { q: "Rumus Volume Bola penuh adalah...", o: ["4/3 πr³", "2/3 πr³", "4πr²", "πr³"], a: "4/3 πr³" },
+                    { q: "Rumus Luas Permukaan Bola adalah...", o: ["4πr²", "3πr²", "4/3 πr³", "2πr²"], a: "4πr²" },
+                    { q: "Luas permukaan BOLA SETENGAH PADAT (pejal) adalah...", o: ["3πr²", "2πr²", "4πr²", "1/2 πr²"], a: "3πr²" },
+                    { q: "Bola dimasukkan presisi dlm tabung (menyinggung alas/tutup/sisi). V Bola : V Tabung?", o: ["2 : 3", "3 : 4", "1 : 2", "1 : 3"], a: "2 : 3" },
+                    { q: "Jari-jari bola 10 cm, volumenya (π=3,14)...", o: ["4186,67 cm³", "3140 cm³", "1256 cm³", "418,6 cm³"], a: "4186,67 cm³" },
+                    { q: "Luas permukaan bola jika r=7 (π=22/7) adalah...", o: ["616 cm²", "154 cm²", "308 cm²", "1437 cm²"], a: "616 cm²" },
+                    { q: "Bentuk tetesan air idealnya merupakan bangun ruang...", o: ["Bola", "Kerucut", "Tabung", "Prisma"], a: "Bola" },
+                    { q: "Luas kulit jeruk manis berdiameter 14 cm adalah...", o: ["616 cm²", "308 cm²", "154 cm²", "1232 cm²"], a: "616 cm²" },
+                    { q: "Gabungan kerucut (atas) & tabung (bawah). Sisi selimut kerucut disebut...", o: ["Atap", "Alas", "Tutup", "Dasar"], a: "Atap" },
+                    { q: "Planet bumi dianggap bola dengan r=6400km. Rumus menghitung Volumenya?", o: ["4/3 x π x 6400³", "4 x π x 6400²", "π x 6400²", "1/3 x π x 6400³"], a: "4/3 x π x 6400³" }
+                ]},
+                { level: 10, topic: "Ujian Akhir Kelas 9 (HOTS & Logika)", qs: [
+                    { q: "Jika 2^(x+3) = 64, nilai x?", o: ["3", "4", "2", "6"], a: "3" },
+                    { q: "Akar-akar dari x² - px + 12 = 0 adalah 3 dan a. Nilai p?", o: ["7", "-7", "4", "12"], a: "7" },
+                    { q: "Fungsi kuadrat yg puncaknya (2,-1) dan melalui (0,3). Nilai a?", o: ["1", "-1", "2", "-2"], a: "1" },
+                    { q: "Garis y=2x-3 ditranslasi T(1,2). Persamaan baru?", o: ["y = 2x - 3", "y = 2x - 1", "y = 2x + 1", "y = -2x - 3"], a: "y = 2x - 3" },
+                    { q: "Bangun datar direfleksi thd (0,0), lalu rotasi 180°. Posisinya thd awal?", o: ["Sama persis (Involution)", "Pindah ke kuadran sebelah", "Ukuran membesar", "Terbalik"], a: "Sama persis (Involution)" },
+                    { q: "Air penuh di tabung r=10 t=15 dituang ke bola r=10. Sisa air?", o: ["Tumpah (Sisa >0)", "Bola pas penuh (0)", "Bola kurang penuh", "Tidak bisa dihitung"], a: "Tumpah (Sisa >0)" },
+                    { q: "Sebuah foto ditempel di karton 40x50. Sisa tepi kiri,kanan,atas 4cm. Bawah?", o: ["8 cm", "4 cm", "6 cm", "10 cm"], a: "8 cm" },
+                    { q: "Bayangan titik (a,b) rotasi 90° adalah (3,2). Titik awal (a,b)?", o: ["(2, -3)", "(-2, 3)", "(3, 2)", "(-3, -2)"], a: "(2, -3)" },
+                    { q: "Luas permukaan kubus yg panjang diagonal ruangnya 3√3 cm?", o: ["54 cm²", "27 cm²", "9 cm²", "81 cm²"], a: "54 cm²" },
+                    { q: "Uang koin, dadu, dadu (3 benda) dilempar bersama. Banyak titik sampel?", o: ["72", "36", "14", "12"], a: "72" }
+                ]}
+            ]
+        };
 
         const TIME_PER_QUESTION = 30; 
         const TOTAL_QS = 10;
         
-        // --- AUDIO ENGINE ---
         const AudioSys = {
-            ok: new Audio('success.mp3'),
-            err: new Audio('error.mp3'),
-            bgm: new Audio('bgm.mp3'),
-            init() {
-                this.bgm.loop = true;
-                this.bgm.volume = 0.4;
-            },
-            play(t) {
-                if(this[t]) {
-                    this[t].currentTime = 0;
-                    this[t].play().catch(()=>console.log("Audio blocked"));
-                }
-            },
-            toggle(on) {
-                on ? this.bgm.play().catch(()=>console.log("BGM blocked")) : this.bgm.pause();
-            }
+            ok: new Audio('success.mp3'), err: new Audio('error.mp3'), bgm: new Audio('bgm.mp3'),
+            init() { this.bgm.loop = true; this.bgm.volume = 0.4; },
+            play(t) { if(this[t]) { this[t].currentTime = 0; this[t].play().catch(()=>console.log("Audio blocked")); } },
+            toggle(on) { on ? this.bgm.play().catch(()=>console.log("BGM blocked")) : this.bgm.pause(); }
         };
         AudioSys.init();
 
-
-        // === REACT APP ===
         function HackerApp() {
-            const [state, setState] = useState('BOOT'); // BOOT, MAIN, SECTOR, HACKING, RESULT
+            const [state, setState] = useState('BOOT'); 
             const [sector, setSector] = useState(null);
             const [level, setLevel] = useState(null);
-            
             const [qIdx, setQIdx] = useState(0);
             const [score, setScore] = useState(0);
             const [corrects, setCorrects] = useState(0);
             const [time, setTime] = useState(TIME_PER_QUESTION);
-            const [status, setStatus] = useState(null); // 'access_granted', 'access_denied'
+            const [status, setStatus] = useState(null);
             const [paused, setPaused] = useState(false);
             const [sfxOn, setSfxOn] = useState(true);
             const [bootLog, setBootLog] = useState("");
@@ -523,24 +426,13 @@ const allQuestionsData = {
                 return [];
             }, [sector, level]);
 
-            // Fake Boot Sequence
             useEffect(() => {
                 if(state === 'BOOT') {
-                    const logs = [
-                        "INITIALIZING NEXUS_OS...",
-                        "BYPASSING FIREWALL...",
-                        "ESTABLISHING SECURE CONNECTION...",
-                        "CONNECTION ESTABLISHED.",
-                        "WELCOME, HACKER."
-                    ];
+                    const logs = ["INITIALIZING NEXUS_OS...", "BYPASSING FIREWALL...", "ESTABLISHING SECURE CONNECTION...", "CONNECTION ESTABLISHED.", "WELCOME, HACKER."];
                     let i = 0;
                     const intv = setInterval(() => {
-                        setBootLog(prev => prev + "\n> " + logs[i]);
-                        i++;
-                        if(i === logs.length) {
-                            clearInterval(intv);
-                            setTimeout(() => setState('MAIN'), 1000);
-                        }
+                        setBootLog(prev => prev + "\n> " + logs[i]); i++;
+                        if(i === logs.length) { clearInterval(intv); setTimeout(() => setState('MAIN'), 1000); }
                     }, 400);
                     return () => clearInterval(intv);
                 }
@@ -548,11 +440,8 @@ const allQuestionsData = {
 
             useEffect(() => {
                 if (state === 'HACKING' && !paused) {
-                    if (time > 0) {
-                        timerRef.current = setTimeout(() => setTime(time - 1), 1000);
-                    } else {
-                        checkAns(null, true);
-                    }
+                    if (time > 0) { timerRef.current = setTimeout(() => setTime(time - 1), 1000); } 
+                    else { checkAns(null, true); }
                 }
                 return () => clearTimeout(timerRef.current);
             }, [state, time, paused]);
@@ -560,64 +449,44 @@ const allQuestionsData = {
             useEffect(() => { AudioSys.toggle(sfxOn && state !== 'BOOT'); }, [sfxOn, state]);
 
             const startHack = (s, l) => {
-                setSector(s); setLevel(l);
-                setQIdx(0); setScore(0); setCorrects(0); setTime(TIME_PER_QUESTION);
-                setStatus(null); setPaused(false);
-                setState('HACKING');
+                setSector(s); setLevel(l); setQIdx(0); setScore(0); setCorrects(0); setTime(TIME_PER_QUESTION);
+                setStatus(null); setPaused(false); setState('HACKING');
             };
 
             const checkAns = (ans, timeout = false) => {
                 if (paused || status) return;
                 clearTimeout(timerRef.current);
-                
                 const currQ = activeQs[qIdx];
                 const isRight = !timeout && ans === currQ.a;
 
                 if (isRight) {
-                    setStatus('access_granted');
-                    if(sfxOn) AudioSys.play('ok');
-                    setScore(prev => prev + 500 + (time * 10)); // Hacker scoring is bigger
-                    setCorrects(prev => prev + 1);
+                    setStatus('access_granted'); if(sfxOn) AudioSys.play('ok');
+                    setScore(prev => prev + 500 + (time * 10)); setCorrects(prev => prev + 1);
                 } else {
-                    setStatus(timeout ? 'timeout' : 'access_denied');
-                    if(sfxOn) AudioSys.play('err');
+                    setStatus(timeout ? 'timeout' : 'access_denied'); if(sfxOn) AudioSys.play('err');
                 }
 
                 setPaused(true);
                 setTimeout(() => {
                     setStatus(null); setPaused(false);
-                    if (qIdx + 1 < TOTAL_QS) {
-                        setQIdx(prev => prev + 1); setTime(TIME_PER_QUESTION);
-                    } else {
-                        setState('RESULT');
-                    }
-                }, isRight ? 800 : 1500); // Wait longer on error to see right answer
+                    if (qIdx + 1 < TOTAL_QS) { setQIdx(prev => prev + 1); setTime(TIME_PER_QUESTION); } 
+                    else { setState('RESULT'); }
+                }, isRight ? 800 : 1500);
             };
 
-
-            // -- RENDERERS --
-            const cssTheme = sector ? `theme-${sector}` : 'theme-8'; // default cyan
+            const cssTheme = sector ? `theme-${sector}` : 'theme-8'; 
 
             if(state === 'BOOT') {
-                return (
-                    <div className="h-full flex items-center p-8 bg-black">
-                        <pre className="text-green-500 whitespace-pre-wrap">{bootLog}</pre>
-                    </div>
-                );
+                return <div className="h-full flex items-center p-8 bg-black"><pre className="text-green-500 whitespace-pre-wrap">{bootLog}</pre></div>;
             }
 
             if(state === 'MAIN') {
                 return (
                     <div className={`h-full flex flex-col items-center justify-center p-6 bg-black text-center theme-8`}>
                         <div className="mb-2 text-gray-500 tracking-widest text-sm">CYBER-SYNDICATE MAINFRAME</div>
-                        <h1 className="text-5xl md:text-7xl font-bold mb-4 title-font" style={{color: 'var(--neon)', textShadow: '0 0 10px var(--neon)'}}>
-                            MATH HACKER<br/><span className="text-3xl">NEXUS</span>
-                        </h1>
+                        <h1 className="text-5xl md:text-7xl font-bold mb-4 title-font" style={{color: 'var(--neon)', textShadow: '0 0 10px var(--neon)'}}>MATH HACKER<br/><span className="text-3xl">NEXUS</span></h1>
                         <p className="max-w-lg mb-10 text-gray-400">Pecahkan algoritma enkripsi matematika untuk meretas server Syndicate. Dibutuhkan kecepatan dan ketepatan kalkulasi.</p>
-                        
-                        <button onClick={() => setState('SECTOR')} className="btn-hack px-10 py-4 text-2xl font-bold w-full max-w-sm">
-                            [ INITIATE_HACK ]
-                        </button>
+                        <button onClick={() => setState('SECTOR')} className="btn-hack px-10 py-4 text-2xl font-bold w-full max-w-sm">[ INITIATE_HACK ]</button>
                     </div>
                 );
             }
@@ -626,22 +495,22 @@ const allQuestionsData = {
                 return (
                     <div className="h-full flex flex-col items-center p-6 bg-black pt-10">
                         <h2 className="text-3xl mb-10 title-font" style={{color: '#00f3ff', textShadow: '0 0 10px #00f3ff'}}>SELECT TARGET SECTOR</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl overflow-y-auto">
                             {[7,8,9].map(g => (
-                                <div key={g} className={`terminal-container p-6 flex flex-col justify-between h-48 theme-${g}`}>
+                                <div key={g} className={`terminal-container p-6 flex flex-col justify-between min-h-[220px] theme-${g}`}>
                                     <div>
                                         <div className="text-xs text-gray-400 mb-2">TARGET: GRADE_{g}</div>
                                         <div className="text-2xl font-bold mb-2" style={{color: 'var(--neon)'}}>SECTOR 0{g}</div>
-                                        <div className="text-sm opacity-80 mb-4">{g===7 ? 'Aljabar & Aritmetika' : g===8 ? 'Fungsi & Geometri' : 'Akar & Persamaan Kuadrat'}</div>
                                     </div>
-                                    <div className="flex gap-2">
-                                        <button onClick={()=>startHack(g,1)} className="btn-hack flex-1 py-2 text-sm">LVL_1</button>
-                                        <button onClick={()=>startHack(g,2)} className="btn-hack flex-1 py-2 text-sm">LVL_2</button>
+                                    <div className="grid grid-cols-2 gap-2 mt-4">
+                                        {[1,2,3,4,5,6,7,8,9,10].map(lvl => (
+                                            <button key={lvl} onClick={()=>startHack(g,lvl)} className="btn-hack py-1 text-xs">Lvl {lvl}</button>
+                                        ))}
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <button onClick={() => setState('MAIN')} className="mt-12 text-gray-500 hover:text-white transition">{'< ABORT / RETURN'}</button>
+                        <button onClick={() => setState('MAIN')} className="mt-8 text-gray-500 hover:text-white transition">{'< ABORT / RETURN'}</button>
                     </div>
                 );
             }
@@ -649,15 +518,15 @@ const allQuestionsData = {
             if(state === 'HACKING') {
                 const q = activeQs[qIdx];
                 const p = ((qIdx+1)/TOTAL_QS)*100;
-                // --- KODE BARU UNTUK MENGACAK JAWABAN ---
+                
+                // ACAK JAWABAN
                 const shuffledOptions = useMemo(() => {
-                if(!q) return [];
-                return [...q.o].sort(() => Math.random() - 0.5);
+                    if(!q) return [];
+                    return [...q.o].sort(() => Math.random() - 0.5);
                 }, [qIdx, activeQs]);
-                // ----------------------------------------    
+                
                 return (
                     <div className={`h-full flex flex-col bg-black pt-4 ${cssTheme}`}>
-                        {/* Header Panel */}
                         <div className="flex justify-between items-center px-4 md:px-8 mb-4 border-b border-gray-800 pb-2">
                             <button onClick={()=>{setPaused(true); setState('SECTOR')}} className="text-gray-500 hover:text-white">{'[X] ABORT'}</button>
                             <div className="text-center">
@@ -665,27 +534,18 @@ const allQuestionsData = {
                                 <div style={{color: 'var(--neon)'}}>{q.topic}</div>
                             </div>
                             <div className="flex items-center gap-4">
-                                <button onClick={()=>setSfxOn(!sfxOn)}>{sfxOn ? 'SOUND_ON' : 'SOUND_OFF'}</button>
+                                <button onClick={()=>setSfxOn(!sfxOn)}>{sfxOn ? 'SND_ON' : 'SND_OFF'}</button>
                                 <div className="text-xl title-font font-bold">{String(score).padStart(6, '0')}</div>
                             </div>
                         </div>
 
-                        {/* Progress */}
-                        <div className="w-full bg-gray-900 h-1 mb-8">
-                            <div className="h-full transition-all duration-300" style={{width: `${p}%`, background: 'var(--neon)', boxShadow: '0 0 10px var(--neon)'}}></div>
-                        </div>
+                        <div className="w-full bg-gray-900 h-1 mb-8"><div className="h-full transition-all duration-300" style={{width: `${p}%`, background: 'var(--neon)', boxShadow: '0 0 10px var(--neon)'}}></div></div>
 
-                        {/* Main Screen */}
                         <div className="flex-grow flex flex-col items-center justify-center p-4">
                             <div className="text-center w-full max-w-3xl">
-                                <div className={`text-6xl font-bold mb-8 title-font ${time <= 5 ? 'timer-danger' : ''}`} style={{color: time>5 ? 'white' : ''}}>
-                                    00:{String(time).padStart(2,'0')}
-                                </div>
-
+                                <div className={`text-6xl font-bold mb-8 title-font ${time <= 5 ? 'timer-danger' : ''}`} style={{color: time>5 ? 'white' : ''}}>00:{String(time).padStart(2,'0')}</div>
                                 <div className="terminal-container p-8 md:p-12 mb-8 min-h-[200px] flex items-center justify-center relative">
                                     <h3 className="text-2xl md:text-4xl text-white font-medium leading-relaxed font-sans">{q.q}</h3>
-                                    
-                                    {/* Overlay Feedback */}
                                     {status && (
                                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 backdrop-blur-sm z-10">
                                             {status === 'access_granted' ? (
@@ -702,11 +562,9 @@ const allQuestionsData = {
                             </div>
                         </div>
 
-                        {/* Options */}
                         <div className="grid grid-cols-2 gap-4 p-4 max-w-4xl w-full mx-auto pb-8">
                             {shuffledOptions.map((opt, i) => (
-                                <button key={i} onClick={()=>checkAns(opt)} disabled={!!status}
-                                    className="btn-hack p-4 text-xl md:text-2xl font-sans font-bold flex items-center justify-center disabled:opacity-50 min-h-[80px]">
+                                <button key={i} onClick={()=>checkAns(opt)} disabled={!!status} className="btn-hack p-4 text-xl md:text-2xl font-sans font-bold flex items-center justify-center disabled:opacity-50 min-h-[80px]">
                                     {opt}
                                 </button>
                             ))}
@@ -720,40 +578,24 @@ const allQuestionsData = {
                 return (
                     <div className={`h-full flex flex-col items-center justify-center p-6 bg-black ${cssTheme}`}>
                         <div className="terminal-container p-10 max-w-lg w-full text-center">
-                            <h2 className="text-4xl title-font font-bold mb-2" style={{color: pass ? 'var(--neon)' : '#ff003c'}}>
-                                {pass ? 'HACK SUCCESSFUL' : 'HACK FAILED'}
-                            </h2>
+                            <h2 className="text-4xl title-font font-bold mb-2" style={{color: pass ? 'var(--neon)' : '#ff003c'}}>{pass ? 'HACK SUCCESSFUL' : 'HACK FAILED'}</h2>
                             <div className="text-gray-400 mb-8 border-b border-gray-800 pb-4">SECTOR 0{sector} // ENCRYPTION LVL {level}</div>
-                            
                             <div className="flex justify-around mb-8">
-                                <div>
-                                    <div className="text-xs text-gray-500 mb-1">NODES DECRYPTED</div>
-                                    <div className="text-4xl text-white">{corrects}<span className="text-lg text-gray-500">/10</span></div>
-                                </div>
-                                <div>
-                                    <div className="text-xs text-gray-500 mb-1">DATA REWARD</div>
-                                    <div className="text-4xl title-font" style={{color: 'var(--neon)'}}>{score}</div>
-                                </div>
+                                <div><div className="text-xs text-gray-500 mb-1">NODES DECRYPTED</div><div className="text-4xl text-white">{corrects}<span className="text-lg text-gray-500">/10</span></div></div>
+                                <div><div className="text-xs text-gray-500 mb-1">DATA REWARD</div><div className="text-4xl title-font" style={{color: 'var(--neon)'}}>{score}</div></div>
                             </div>
-
-                            {!pass && <div className="text-red-500 mb-8 text-sm">Peringatan: Sistem keamanan Syndicate mendeteksi terlalu banyak error (Minimal butuh 6 jawaban benar).</div>}
-
+                            {!pass && <div className="text-red-500 mb-8 text-sm">Sistem keamanan mendeteksi terlalu banyak error (Minimal 6 jawaban benar).</div>}
                             <div className="flex gap-4">
                                 <button onClick={()=>setState('SECTOR')} className="btn-hack px-6 py-3 flex-1">NEW TARGET</button>
-                                {pass && level === 1 ? (
-                                    <button onClick={()=>startHack(sector, 2)} className="btn-hack px-6 py-3 flex-1" style={{background: 'var(--neon)', color: '#000'}}>DEEP HACK Lvl 2</button>
-                                ) : (
-                                    <button onClick={()=>startHack(sector, level)} className="btn-hack px-6 py-3 flex-1">RETRY HACK</button>
-                                )}
+                                {pass && level < 10 ? <button onClick={()=>startHack(sector, level + 1)} className="btn-hack px-6 py-3 flex-1" style={{background: 'var(--neon)', color: '#000'}}>DEEP HACK Lvl {level+1}</button>
+                                : <button onClick={()=>startHack(sector, level)} className="btn-hack px-6 py-3 flex-1">RETRY HACK</button>}
                             </div>
                         </div>
                     </div>
                 );
             }
         }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<HackerApp />);
+        const root = ReactDOM.createRoot(document.getElementById('root')); root.render(<HackerApp />);
     </script>
 </body>
 </html>
