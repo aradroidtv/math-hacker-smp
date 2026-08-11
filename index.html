@@ -649,7 +649,12 @@ const allQuestionsData = {
             if(state === 'HACKING') {
                 const q = activeQs[qIdx];
                 const p = ((qIdx+1)/TOTAL_QS)*100;
-                
+                // --- KODE BARU UNTUK MENGACAK JAWABAN ---
+                const shuffledOptions = useMemo(() => {
+                if(!q) return [];
+                return [...q.o].sort(() => Math.random() - 0.5);
+                }, [qIdx, activeQs]);
+                // ----------------------------------------    
                 return (
                     <div className={`h-full flex flex-col bg-black pt-4 ${cssTheme}`}>
                         {/* Header Panel */}
