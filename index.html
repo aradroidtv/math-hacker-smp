@@ -426,6 +426,13 @@
                 return [];
             }, [sector, level]);
 
+            // PENGACAK DIPINDAHKAN KE TOP LEVEL HOOK
+            const shuffledOptions = useMemo(() => {
+                const q = activeQs[qIdx];
+                if(!q || !q.o) return [];
+                return [...q.o].sort(() => Math.random() - 0.5);
+            }, [activeQs, qIdx]);
+
             useEffect(() => {
                 if(state === 'BOOT') {
                     const logs = ["INITIALIZING NEXUS_OS...", "BYPASSING FIREWALL...", "ESTABLISHING SECURE CONNECTION...", "CONNECTION ESTABLISHED.", "WELCOME, HACKER."];
@@ -518,12 +525,6 @@
             if(state === 'HACKING') {
                 const q = activeQs[qIdx];
                 const p = ((qIdx+1)/TOTAL_QS)*100;
-                
-                // ACAK JAWABAN
-                const shuffledOptions = useMemo(() => {
-                    if(!q) return [];
-                    return [...q.o].sort(() => Math.random() - 0.5);
-                }, [qIdx, activeQs]);
                 
                 return (
                     <div className={`h-full flex flex-col bg-black pt-4 ${cssTheme}`}>
